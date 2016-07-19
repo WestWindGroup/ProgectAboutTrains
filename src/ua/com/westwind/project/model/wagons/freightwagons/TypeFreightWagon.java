@@ -1,7 +1,7 @@
 package ua.com.westwind.project.model.wagons.freightwagons;
 
 public enum TypeFreightWagon {
-    CISTERN_SV(0),
+    CISTERN(0),
     COVERRED(1),
     ISOTHERMAL(2),
     PLATFORM(3);

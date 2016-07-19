@@ -20,23 +20,11 @@ public class PassengerWagon implements Wagons {
         return typePassengerWagon;
     }
 
-    public void setTypePassengerWagon(TypePassengerWagon typePassengerWagon) {
-        this.typePassengerWagon = typePassengerWagon;
-    }
-
     public int getCountPlace() {
         return countPlace;
     }
 
-    public void setCountPlace(int countPlace) {
-        this.countPlace = countPlace;
-    }
-
     public ArrayList<Place> getListPlace() {
         return listPlace;
-    }
-
-    public void setListPlace(ArrayList<Place> listPlace) {
-        this.listPlace = listPlace;
     }
 }

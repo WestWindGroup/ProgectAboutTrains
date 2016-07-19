@@ -3,4 +3,14 @@ package ua.com.westwind.project.model.wagons.freightwagons;
 import ua.com.westwind.project.model.Wagons;
 
 public class FreightWagon implements Wagons {
+
+    protected TypeFreightWagon typeFreightWagon;
+
+    public FreightWagon(TypeFreightWagon typeFreightWagon) {
+        this.typeFreightWagon = typeFreightWagon;
+    }
+
+    public TypeFreightWagon getTypeFreightWagon() {
+        return typeFreightWagon;
+    }
 }

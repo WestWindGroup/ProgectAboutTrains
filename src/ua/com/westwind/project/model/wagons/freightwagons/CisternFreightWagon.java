@@ -10,6 +10,6 @@ public class CisternFreightWagon extends FreightWagon {
 
     @Override
     public TypeFreightWagon getTypeFreightWagon() {
-        return TYPE_WAGON;
+        return typeFreightWagon;
     }
 }

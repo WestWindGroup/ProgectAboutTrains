@@ -10,6 +10,6 @@ public class IsothermalFreightWagon extends FreightWagon {
 
     @Override
     public TypeFreightWagon getTypeFreightWagon() {
-        return TYPE_WAGON;
+        return typeFreightWagon;
     }
 }

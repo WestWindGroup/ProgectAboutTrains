@@ -1,9 +1,15 @@
 package ua.com.westwind.project.model.wagons.freightwagons;
 
 public class PlatformFreightWagon extends FreightWagon {
-    public static final TypeFreightWagon TYPE_WAGON = TypeFreightWagon.PLATFORM;
+
+    private final TypeFreightWagon TYPE_WAGON = TypeFreightWagon.PLATFORM;
 
     public PlatformFreightWagon() {
-        super(TYPE_WAGON);
+        typeFreightWagon = TYPE_WAGON;
+    }
+
+    @Override
+    public TypeFreightWagon getTypeFreightWagon() {
+        return TYPE_WAGON;
     }
 }

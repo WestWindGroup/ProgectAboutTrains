@@ -1,9 +1,15 @@
 package ua.com.westwind.project.model.wagons.freightwagons;
 
 public class CisternFreightWagon extends FreightWagon {
-    public static final TypeFreightWagon TYPE_WAGON = TypeFreightWagon.CISTERN;
+
+    private final TypeFreightWagon TYPE_WAGON = TypeFreightWagon.CISTERN;
 
     public CisternFreightWagon() {
-        super(TYPE_WAGON);
+        typeFreightWagon = TYPE_WAGON;
+    }
+
+    @Override
+    public TypeFreightWagon getTypeFreightWagon() {
+        return TYPE_WAGON;
     }
 }

@@ -6,22 +6,22 @@ import java.util.ArrayList;
 
 public class PassengerWagon implements Wagons {
 
-    protected TypeWagon typeWagon;
+    protected TypePassengerWagon typePassengerWagon;
     protected int countPlace;
     protected ArrayList<Place>listPlace;
 
-    public PassengerWagon(TypeWagon typeWagon, int countPlace) {
-        this.typeWagon = typeWagon;
+    public PassengerWagon(TypePassengerWagon typePassengerWagon, int countPlace) {
+        this.typePassengerWagon = typePassengerWagon;
         this.countPlace = countPlace;
         this.listPlace = new ArrayList<>(countPlace);
     }
 
-    public TypeWagon getTypeWagon() {
-        return typeWagon;
+    public TypePassengerWagon getTypePassengerWagon() {
+        return typePassengerWagon;
     }
 
-    public void setTypeWagon(TypeWagon typeWagon) {
-        this.typeWagon = typeWagon;
+    public void setTypePassengerWagon(TypePassengerWagon typePassengerWagon) {
+        this.typePassengerWagon = typePassengerWagon;
     }
 
     public int getCountPlace() {

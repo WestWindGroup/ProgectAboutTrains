@@ -2,7 +2,7 @@ package ua.com.westwind.project.model.wagons.passengerwagons;
 
 public class CoupeNormalWagon extends PassengerWagon {
 
-    public static final TypeWagon TYPE_WAGON = TypeWagon.COUPE;
+    public static final TypePassengerWagon TYPE_WAGON = TypePassengerWagon.COUPE;
     private static final int COUNT_PLACE = 40;
 
     public CoupeNormalWagon() {

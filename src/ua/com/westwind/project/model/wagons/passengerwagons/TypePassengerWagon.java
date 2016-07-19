@@ -1,6 +1,6 @@
 package ua.com.westwind.project.model.wagons.passengerwagons;
 
-public enum TypeWagon {
+public enum TypePassengerWagon {
     COUPE_SV(0),
     COUPE(1),
     ECONOM_PASSENGER_WAGON(2),
@@ -9,7 +9,7 @@ public enum TypeWagon {
 
     private int comfortLevel;
 
-    TypeWagon(int comfortLevel){
+    TypePassengerWagon(int comfortLevel){
         this.comfortLevel = comfortLevel;
     }
 

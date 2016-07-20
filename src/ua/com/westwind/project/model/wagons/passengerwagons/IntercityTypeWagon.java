@@ -1,20 +1,18 @@
 package ua.com.westwind.project.model.wagons.passengerwagons;
 
-public enum TypePassengerWagon {
-    COUPE_SV(0),
-    COUPE(1),
-    ECONOM_PASSENGER_WAGON(2),
-    COUPE_WAGON_WITH_SEATING(3),
-    PASSENGER_WAGON_WITH_SEATING(4);
+public enum IntercityTypeWagon implements TypeWagon {
+
+    WAGON_1_CLASS(0),
+    WAGON_2_CLASS(1),
+    WAGON_1_AND_2_CLASSES(2);
 
     private int comfortLevel;
 
-    TypePassengerWagon(int comfortLevel){
+    IntercityTypeWagon(int comfortLevel){
         this.comfortLevel = comfortLevel;
     }
 
     public int getComfortLevel() {
         return comfortLevel;
     }
-
 }

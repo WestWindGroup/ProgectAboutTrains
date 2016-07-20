@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 public abstract class PassengerWagon implements Wagons {
 
-    protected TypePassengerWagon typePassengerWagon;
+    protected TypeWagon typeWagon;
     protected int countPlace;
     protected ArrayList<Place>listPlace;
 
 
-    abstract  TypePassengerWagon getTypePassengerWagon();
+    abstract TypeWagon getPassengerTypeWagon();
 
     abstract  int getCountPlace();
 

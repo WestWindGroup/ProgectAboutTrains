@@ -10,7 +10,13 @@ public class CoupeWagonWithSeating extends PassengerWagon {
     public CoupeWagonWithSeating() {
         typeWagon = TYPE_WAGON;
         countPlace = COUNT_PLACE;
-        listPlace = new ArrayList<>(COUNT_PLACE);
+        createListPlace();
+    }
+    private void createListPlace() {
+        for (int i = 1; i <= COUNT_PLACE;) {
+            listPlace.add(new Place(i++ , TypePassengerPlace.SEAT_PLACE));
+        }
+
     }
 
     public TypeWagon getPassengerTypeWagon() {

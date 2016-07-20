@@ -4,8 +4,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import ua.com.westwind.project.model.intercity.IntercityWagon;
-import ua.com.westwind.project.model.wagons.passengerwagons.IntercityTypeWagon;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,15 +14,15 @@ public class CreateTrain {
     private String typeTrain;
     public void routeTrainInObjectTrain(String route){
         returnDataAboutTrain(route);
-        TrainFactory trainFactory = returnTrain();
+        returnTrain();
     }
-    private TrainFactory returnTrain(){
+    private void returnTrain(){
         if(typeTrain.equals("CompositionPassengerTrain")){
-            return new CompositionFreightTrainFactory(pathFile);
+            new CompositionPassengerTrainFactory(pathFile);
         }else if(typeTrain.equals("IntercityTrain")){
-            return  new IntercityTrainFactory(pathFile);
+            new IntercityTrainFactory(pathFile);
         }else if(typeTrain.equals("CompositionFreightTrain")){
-            return new CompositionFreightTrainFactory(pathFile);
+            new CompositionFreightTrainFactory(pathFile);
         }
     }
 
@@ -47,11 +45,11 @@ public class CreateTrain {
                         if(nodeMap.item(j).getNodeName().equals(nameRoute)){
                             NodeList nodeListElement = nodeList.item(i).getChildNodes();
                             for (int k = 0; k < nodeListElement.getLength(); k++) {
-                                if(nodeList.item(k).getNodeName().equals("typeTrain")){
-                                    typeTrain = getElementContent(nodeList.item(k));
+                                if(nodeListElement.item(k).getNodeName().equals("typeTrain")){
+                                    typeTrain = getElementContent(nodeListElement.item(k));
                                 }
-                                if(nodeList.item(k).getNodeName().equals("file")){
-                                    pathFile = getElementContent(nodeList.item(k));
+                                if(nodeListElement.item(k).getNodeName().equals("file")){
+                                    pathFile = getElementContent(nodeListElement.item(k));
                                 }
                             }
                         }

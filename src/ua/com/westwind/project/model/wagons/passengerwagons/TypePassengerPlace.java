@@ -1,15 +1,16 @@
 package ua.com.westwind.project.model.wagons.passengerwagons;
 
-public enum TypePassendgerPlace implements TypePlace{
+public enum TypePassengerPlace implements TypePlace{
 
     SEAT_PLACE(0),
     DOWN_PLACE(1),
     UP_PLACE(2),
-    SIDE_PLACE(3);
+    SIDE_PLACE_UP(3),
+    SIDE_PLACE_DOWN(4);
 
     private int featuresPlace;
 
-    TypePassendgerPlace(int featuresPlace){
+    TypePassengerPlace(int featuresPlace){
         this.featuresPlace = featuresPlace;
     }
 

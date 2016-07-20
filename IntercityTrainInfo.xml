@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE baseIntersityTrain>
+<baseIntersityTrain>
+    <Hyundai>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="56"></wagon>
+        <wagon type="WAGON_1_CLASS" countPlace1="56" countPlace2="0"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="51"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="81"></wagon>
+        <wagon type="WAGON_1_CLASS" countPlace1="56" countPlace2="0"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="81"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="81"></wagon>
+        <wagon type="WAGON_1_CLASS" countPlace1="56" countPlace2="0"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="61"></wagon>
+    </Hyundai>
+    <Skoda>
+        <wagon type="WAGON_1_AND_2_CLASSES" countPlace1="23" countPlace2="19"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="134"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="134"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="134"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="121"></wagon>
+        <wagon type="WAGON_1_AND_2_CLASSES" countPlace1="23" countPlace2="19"></wagon>
+    </Skoda>
+    <LocomotiveTraction>
+        <wagon type="WAGON_1_CLASS" countPlace1="64" countPlace2="0"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="94"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="84"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="94"></wagon>
+        <wagon type="WAGON_1_CLASS" countPlace1="64" countPlace2="0"></wagon>
+    </LocomotiveTraction>
+    <Tarpan>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="20"></wagon>
+        <wagon type="WAGON_1_CLASS" countPlace1="64" countPlace2="0"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="94"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="112"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="45"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="94"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="94"></wagon>
+        <wagon type="WAGON_1_CLASS" countPlace1="64" countPlace2="0"></wagon>
+        <wagon type="WAGON_2_CLASS" countPlace1="0" countPlace2="20"></wagon>
+    </Tarpan>
+</baseIntersityTrain>

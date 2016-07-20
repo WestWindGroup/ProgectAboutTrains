@@ -1,6 +1,10 @@
 package ua.com.westwind.project.model.intercity;
 
-import ua.com.westwind.project.model.IntercityTrains;
+public class TrainLocomotiveTraction extends IntercityTrains{
 
-public class TrainLocomotiveTraction implements IntercityTrains{
+    public TrainLocomotiveTraction() {
+        nameTrain = "LocomotiveTraction";
+        parsingXML();
+        countWagonAmount = listInterCityWagon.size();
+    }
 }

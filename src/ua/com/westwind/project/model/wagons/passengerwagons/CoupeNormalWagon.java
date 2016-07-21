@@ -12,16 +12,27 @@ public class CoupeNormalWagon extends PassengerWagon {
     public CoupeNormalWagon() {
         typeWagon = TYPE_WAGON;
         countPlace = COUNT_PLACE;
+        listPlace = new ArrayList<>();
         createListPlace();
     }
 
     private void createListPlace() {
-        for (int i = 1; i <= COUNT_PLACE_UP;) {
+        for (int i = 1; i <= COUNT_PLACE;) {
+            listPlace.add(new Place(i++ , TypePassengerPlace.DOWN_PLACE));
+            listPlace.add(new Place(i++ , TypePassengerPlace.DOWN_PLACE));
+            listPlace.add(new Place(i++ , TypePassengerPlace.UP_PLACE));
             listPlace.add(new Place(i++ , TypePassengerPlace.UP_PLACE));
         }
-        for (int i = COUNT_PLACE_UP + 1; i <= COUNT_PLACE_UP + COUNT_PLACE_DOWN; i++) {
-            listPlace.add(new Place(i , TypePassengerPlace.DOWN_PLACE));
-        }
+//
+    }
+
+
+    public int getCountBusyPlace() {
+        return countBusyPlace;
+    }
+
+    public void setCountBusyPlace(int countBusyPlace) {
+        this.countBusyPlace = countBusyPlace;
     }
 
     public TypeWagon getPassengerTypeWagon() {

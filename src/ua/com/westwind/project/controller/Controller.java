@@ -1,10 +1,7 @@
 package ua.com.westwind.project.controller;
 
-import ua.com.westwind.project.model.Train;
-import ua.com.westwind.project.model.trainfactory.ReadAndWriteInfoTrainInFail;
+import ua.com.westwind.project.view.View;
 
-public class Controller{
-    Train creatTrain(){ return null; }
-    void writeInfoAboutTrain(){}
-    void sortPassengerTrain(){}
+public class Controller extends View{
+
 }

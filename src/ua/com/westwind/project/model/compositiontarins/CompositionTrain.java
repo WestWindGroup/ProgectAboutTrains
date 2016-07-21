@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public abstract class CompositionTrain implements Train {
 
-    protected ArrayList<Locomotives> listLocomotives;
+    protected ArrayList<? extends Locomotives> listLocomotives;
     protected ArrayList<? extends Wagons> listWagons;
+
+
 }

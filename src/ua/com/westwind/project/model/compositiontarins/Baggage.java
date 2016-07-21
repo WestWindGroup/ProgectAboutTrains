@@ -2,11 +2,12 @@ package ua.com.westwind.project.model.compositiontarins;
 
 public class Baggage {
     private double massBaggage;
+    String formattedDouble;
 
     public Baggage(double massBaggage) {
         this.massBaggage = massBaggage;
+        formattedDouble = String.format("%.2f", this.massBaggage);
     }
-
 
     public double getMassBaggage() {
         return massBaggage;
@@ -14,8 +15,8 @@ public class Baggage {
 
     @Override
     public String toString() {
-        return "Baggage: " +
-                "massBaggage = " + massBaggage ;
+        return " Baggage: " +
+                "massBaggage = " + formattedDouble ;
     }
 
     @Override

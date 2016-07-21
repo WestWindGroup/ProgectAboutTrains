@@ -10,6 +10,7 @@ public class PassengerWagonWithSeating extends PassengerWagon {
     public PassengerWagonWithSeating() {
         typeWagon = TYPE_WAGON;
         countPlace = COUNT_PLACE;
+        listPlace = new ArrayList<>();
         createListPlace();
     }
     private void createListPlace() {
@@ -18,6 +19,15 @@ public class PassengerWagonWithSeating extends PassengerWagon {
         }
 
     }
+
+    public int getCountBusyPlace() {
+        return countBusyPlace;
+    }
+
+    public void setCountBusyPlace(int countBusyPlace) {
+        this.countBusyPlace = countBusyPlace;
+    }
+
     public TypeWagon getPassengerTypeWagon() {
         return typeWagon;
     }

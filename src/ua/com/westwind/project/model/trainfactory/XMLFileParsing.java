@@ -2,11 +2,9 @@ package ua.com.westwind.project.model.trainfactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ua.com.westwind.project.model.Locomotives;
 import ua.com.westwind.project.model.Train;
-import ua.com.westwind.project.model.Wagons;
 import ua.com.westwind.project.model.compositiontarins.CompositionPassengerTrain;
 import ua.com.westwind.project.model.compositiontarins.Passenger;
 import ua.com.westwind.project.model.intercity.HyundaiIntercityTrains;
@@ -56,8 +54,6 @@ public class XMLFileParsing {
                             }
                         }
                     }
-
-
                 }
             }
         } catch (Exception e) {
@@ -70,7 +66,7 @@ public class XMLFileParsing {
     public static CompositionPassengerTrain readXMLfileComposition(String nameFile){
         ArrayList<Locomotives> listL = new ArrayList<>();
         ArrayList<PassengerWagon> listW = new ArrayList<>();
-        ArrayList<Passenger> listP = new ArrayList<>();
+        ArrayList<Passenger> listP;
 
         final String PATH = nameFile;
 
@@ -86,8 +82,8 @@ public class XMLFileParsing {
             for (int i = 0; i < nodeList.getLength(); i++){
                 if(nodeList.item(i).getNodeName().equals("locomotive")){
                     NamedNodeMap nodeMap = nodeList.item(i).getAttributes();
+                    int count = 0;
                     for (int j = 0; j < nodeMap.getLength(); j ++){
-                        int count = 0;
                         if(nodeMap.item(j).getNodeName().equals("count")){
                             count = Integer.parseInt(nodeMap.item(j).getNodeValue());
                         }
@@ -100,8 +96,8 @@ public class XMLFileParsing {
                 }
                 if(nodeList.item(i).getNodeName().equals("wagon")){
                     NamedNodeMap nodeMap = nodeList.item(i).getAttributes();
+                    int count = 0;
                     for (int j = 0; j < nodeMap.getLength(); j ++){
-                        int count = 0;
                         if(nodeMap.item(j).getNodeName().equals("count")){
                             count = Integer.parseInt(nodeMap.item(j).getNodeValue());
                         }

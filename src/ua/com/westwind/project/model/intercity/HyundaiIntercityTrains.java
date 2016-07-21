@@ -8,4 +8,6 @@ public class HyundaiIntercityTrains extends IntercityTrains {
         parsingXML();
         countWagonAmount = listInterCityWagon.size();
     }
+
+
 }

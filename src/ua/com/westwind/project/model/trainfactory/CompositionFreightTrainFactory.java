@@ -13,6 +13,8 @@ public class CompositionFreightTrainFactory implements TrainFactory{
 
     @Override
     public Train createTrain() {
-        return new CompositionFreightTrain();
+        return null;
     }
+
+
 }

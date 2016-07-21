@@ -1,4 +1,12 @@
 package ua.com.westwind.project.view;
 
-public class View {
+import ua.com.westwind.project.model.Train;
+
+public abstract class View {
+
+    public void showTrainInConsole(Train train) {
+        train.showTrain();
+    }
+
+
 }

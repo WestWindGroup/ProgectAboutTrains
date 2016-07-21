@@ -9,7 +9,11 @@ public abstract class PassengerWagon implements Wagons {
     protected TypeWagon typeWagon;
     protected int countPlace;
     protected ArrayList<Place>listPlace;
+    protected int countBusyPlace;
 
+    public abstract int getCountBusyPlace();
+
+    public abstract void setCountBusyPlace(int countBusyPlace);
 
     public abstract TypeWagon getPassengerTypeWagon();
 
@@ -19,10 +23,10 @@ public abstract class PassengerWagon implements Wagons {
 
     @Override
     public String toString() {
-        return "PassengerWagon{" +
-                "typeWagon=" + typeWagon +
-                ", countPlace=" + countPlace +
-                ", listPlace=" + listPlace +
-                '}';
+        return "PassengerWagon : " +
+                "typeWagon = " + typeWagon +
+                ", countPlace = " + countPlace +
+                ", countBusyPlace = " + countBusyPlace ;
+//                "," + "\n" + listPlace;
     }
 }

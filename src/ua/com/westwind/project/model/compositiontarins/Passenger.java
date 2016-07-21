@@ -23,10 +23,8 @@ public class Passenger {
 
     @Override
     public String toString() {
-        return "Passenger{" +
-                "ticket = " + ticket +
-                ", baggage = " + baggage +
-                '}';
+        return "Passenger -> " + ticket +
+                "," + baggage;
     }
 
     @Override

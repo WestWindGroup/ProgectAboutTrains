@@ -3,6 +3,7 @@ package ua.com.westwind.project.model.wagons.passengerwagons;
 public class Place {
     private int numberPlace;
     private TypePlace typePlace;
+    private boolean busy;
 
     public Place(int numberPlace, TypePlace typePlace) {
         this.numberPlace = numberPlace;
@@ -25,12 +26,20 @@ public class Place {
         this.numberPlace = numberPlace;
     }
 
+    public boolean isBusy() {
+        return busy;
+    }
+
+    public void setBusy(boolean busy) {
+        this.busy = busy;
+    }
+
+
 
     @Override
     public String toString() {
-        return "Place{" +
-                "numberPlace=" + numberPlace +
-                ", typePlace=" + typePlace +
-                '}';
+        return "Place : " +
+                "numberPlace = " + numberPlace +
+                ", typePlace = " + typePlace + "\n" ;
     }
 }

@@ -27,6 +27,14 @@ public class IntercityWagon extends PassengerWagon {
         }
     }
 
+    public int getCountBusyPlace() {
+        return countBusyPlace;
+    }
+
+    public void setCountBusyPlace(int countBusyPlace) {
+        this.countBusyPlace = countBusyPlace;
+    }
+
     public TypeWagon getPassengerTypeWagon() {
         return typeWagon;
     }

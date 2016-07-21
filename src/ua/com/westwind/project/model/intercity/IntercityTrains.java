@@ -6,6 +6,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ua.com.westwind.project.model.RollingStock;
 import ua.com.westwind.project.model.Train;
+import ua.com.westwind.project.model.compositiontarins.Passenger;
+import ua.com.westwind.project.model.trainfactory.RandomFillPassengerTrain;
 import ua.com.westwind.project.model.wagons.passengerwagons.IntercityTypeWagon;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -14,12 +16,19 @@ import java.io.File;
 import java.util.ArrayList;
 
 public abstract class IntercityTrains implements RollingStock, Train {
+    private final String TYPE_TRAIN = "IntercityTrain";
     protected String nameTrain;
     protected int countWagonAmount;
     protected int countWagonFirstClass;
     protected int countWagonSecondClass;
     protected int countWagonFirstAndSecondClass;
     protected ArrayList<IntercityWagon> listInterCityWagon = new ArrayList<>();
+    ArrayList<Passenger> listPassengers;
+
+    @Override
+    public String returnTypeTrain() {
+        return TYPE_TRAIN;
+    }
 
     protected void parsingXML(){
         final String PATH = "IntercityTrainInfo.xml";
@@ -52,7 +61,9 @@ public abstract class IntercityTrains implements RollingStock, Train {
                 }
             }
         }
+        RandomFillPassengerTrain randomFillPassengerTrain = new RandomFillPassengerTrain();
 
+        listPassengers = randomFillPassengerTrain.fillPassengers(listInterCityWagon);
     }
 
     private IntercityWagon parsingElement(Node node){
@@ -90,6 +101,19 @@ public abstract class IntercityTrains implements RollingStock, Train {
             }
         }
         return new IntercityWagon(typeWagon,countPlaceFirstClass,countPlaceSecondClass);
+    }
+
+    @Override
+    public void showTrain() {
+
+        for(int i = 0; i < listInterCityWagon.size(); i++){
+            System.out.println(listInterCityWagon.get(i));
+            for (Passenger passenger: listPassengers) {
+                if(passenger.getTicket().getNumberWagon() == i + 1){
+                    System.out.println(passenger);
+                }
+            }
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package ua.com.westwind.project;
 
 
 import ua.com.westwind.project.model.intercity.*;
+import ua.com.westwind.project.model.trainfactory.CreateTrain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,9 @@ public class Main {
         for (IntercityTrains help:intercityTrains) {
             System.out.println(help);
         }
+        CreateTrain createTrain = new CreateTrain();
+
+        System.out.println(createTrain.routeTrainInObjectTrain("LvivKiev"));
 
     }
 }

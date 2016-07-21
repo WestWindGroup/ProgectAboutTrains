@@ -7,6 +7,7 @@ import ua.com.westwind.project.model.Wagons;
 import java.util.ArrayList;
 
 public abstract class CompositionTrain implements Train {
-    ArrayList<Locomotives>listLocomotives;
-    ArrayList<Wagons>listWagons;
+
+    protected ArrayList<Locomotives> listLocomotives;
+    protected ArrayList<? extends Wagons> listWagons;
 }

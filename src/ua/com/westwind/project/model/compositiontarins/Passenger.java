@@ -2,17 +2,17 @@ package ua.com.westwind.project.model.compositiontarins;
 
 public class Passenger {
 
-    private final Tickets tickets;
+    private final Ticket ticket;
     private final Baggage baggage;
 
-    public Passenger(Tickets tickets, Baggage baggage) {
-        this.tickets = tickets;
+    public Passenger(Ticket ticket, Baggage baggage) {
+        this.ticket = ticket;
         this.baggage = baggage;
     }
 
 
-    public Tickets getTickets() {
-        return tickets;
+    public Ticket getTicket() {
+        return ticket;
     }
 
 
@@ -24,7 +24,7 @@ public class Passenger {
     @Override
     public String toString() {
         return "Passenger{" +
-                "tickets = " + tickets +
+                "ticket = " + ticket +
                 ", baggage = " + baggage +
                 '}';
     }
@@ -36,14 +36,14 @@ public class Passenger {
 
         Passenger passenger = (Passenger) o;
 
-        if (!tickets.equals(passenger.tickets)) return false;
+        if (!ticket.equals(passenger.ticket)) return false;
         return baggage.equals(passenger.baggage);
 
     }
 
     @Override
     public int hashCode() {
-        int result = tickets.hashCode();
+        int result = ticket.hashCode();
         result = 31 * result + baggage.hashCode();
         return result;
     }

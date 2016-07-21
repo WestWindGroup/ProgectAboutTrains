@@ -11,11 +11,11 @@ public abstract class PassengerWagon implements Wagons {
     protected ArrayList<Place>listPlace;
 
 
-    protected abstract TypeWagon getPassengerTypeWagon();
+    public abstract TypeWagon getPassengerTypeWagon();
 
-    protected abstract  int getCountPlace();
+    public abstract  int getCountPlace();
 
-    protected abstract  ArrayList<Place> getListPlace();
+    public abstract  ArrayList<Place> getListPlace();
 
     @Override
     public String toString() {

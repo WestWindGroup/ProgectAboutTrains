@@ -7,6 +7,8 @@ import org.w3c.dom.NodeList;
 import ua.com.westwind.project.model.Locomotives;
 import ua.com.westwind.project.model.Train;
 import ua.com.westwind.project.model.Wagons;
+import ua.com.westwind.project.model.compositiontarins.CompositionPassengerTrain;
+import ua.com.westwind.project.model.compositiontarins.Passenger;
 import ua.com.westwind.project.model.intercity.HyundaiIntercityTrains;
 import ua.com.westwind.project.model.intercity.SkodaIntercityTrains;
 import ua.com.westwind.project.model.intercity.TarpanIntercityTrains;
@@ -39,16 +41,22 @@ public class XMLFileParsing {
 
             for (int i = 0; i < nodeList.getLength(); i++){
                 if(nodeList.item(i).getNodeName().equals("intercityTrain")){
-                    String help = getElementContent(nodeList.item(i));
-                    if(help.equals("Hyundai")){
-                        return new HyundaiIntercityTrains();
-                    }else if(help.equals("Skoda")){
-                        return new SkodaIntercityTrains();
-                    }else if(help.equals("Tarpan")){
-                        return new TarpanIntercityTrains();
-                    }else if(help.equals("LocomotiveTraction")){
-                        return new TrainLocomotiveTraction();
+                    NamedNodeMap nodeMap = nodeList.item(i).getAttributes();
+                    for (int j = 0; j < nodeMap.getLength(); j ++){
+                        if(nodeMap.item(j).getNodeName().equals("name")){
+                            String help = nodeMap.item(j).getNodeValue();
+                            if(help.equals("Hyundai")){
+                                return new HyundaiIntercityTrains();
+                            }else if(help.equals("Skoda")){
+                                return new SkodaIntercityTrains();
+                            }else if(help.equals("Tarpan")){
+                                return new TarpanIntercityTrains();
+                            }else if(help.equals("LocomotiveTraction")){
+                                return new TrainLocomotiveTraction();
+                            }
+                        }
                     }
+
 
                 }
             }
@@ -58,22 +66,11 @@ public class XMLFileParsing {
 
         return null;
     }
-    private static String getElementContent(Node node) {
 
-        Node contentNode = node.getFirstChild();
-        if (contentNode != null)
-
-            if (contentNode.getNodeName().equals("#text")) {
-                String value = contentNode.getNodeValue();
-                if (value != null)
-                    return value.trim();
-            }
-        return null;
-    }
-
-    public static Train readXMLfileComposition(String nameFile){
+    public static CompositionPassengerTrain readXMLfileComposition(String nameFile){
         ArrayList<Locomotives> listL = new ArrayList<>();
-        ArrayList<Wagons> listW = new ArrayList<>();
+        ArrayList<PassengerWagon> listW = new ArrayList<>();
+        ArrayList<Passenger> listP = new ArrayList<>();
 
         final String PATH = nameFile;
 
@@ -92,11 +89,11 @@ public class XMLFileParsing {
                     for (int j = 0; j < nodeMap.getLength(); j ++){
                         int count = 0;
                         if(nodeMap.item(j).getNodeName().equals("count")){
-                            count = Integer.parseInt(nodeMap.item(i).getNodeValue());
+                            count = Integer.parseInt(nodeMap.item(j).getNodeValue());
                         }
                         if(nodeMap.item(j).getNodeName().equals("type")){
                             for (int k = 0; k < count; k++) {
-                                listL.add(createLocomotive(nodeMap.item(i).getNodeValue()));
+                                listL.add(createLocomotive(nodeMap.item(j).getNodeValue()));
                             }
                         }
                     }
@@ -106,11 +103,11 @@ public class XMLFileParsing {
                     for (int j = 0; j < nodeMap.getLength(); j ++){
                         int count = 0;
                         if(nodeMap.item(j).getNodeName().equals("count")){
-                            count = Integer.parseInt(nodeMap.item(i).getNodeValue());
+                            count = Integer.parseInt(nodeMap.item(j).getNodeValue());
                         }
                         if(nodeMap.item(j).getNodeName().equals("type")){
                             for (int k = 0; k < count; k++) {
-                                listW.add(createWagon(nodeMap.item(i).getNodeValue()));
+                                listW.add(createWagon(nodeMap.item(j).getNodeValue()));
                             }
                         }
                     }
@@ -119,8 +116,11 @@ public class XMLFileParsing {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        RandomFillPassengerTrain randomFillPassengerTrain = new RandomFillPassengerTrain();
 
-        return null;
+        listP = randomFillPassengerTrain.fillPassengers(listW);
+
+        return new CompositionPassengerTrain(listL,listW,listP);
     }
     private static Locomotives createLocomotive(String type){
 
@@ -136,7 +136,7 @@ public class XMLFileParsing {
         return null;
     }
 
-    private static Wagons createWagon(String type){
+    private static PassengerWagon createWagon(String type){
 
         if(type.equals("CoupeSVWagon")){
             return new CoupeSVWagon();

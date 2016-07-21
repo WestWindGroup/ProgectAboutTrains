@@ -13,6 +13,6 @@ public class CompositionPassengerTrainFactory implements TrainFactory{
 
     @Override
     public Train createTrain() {
-        return new CompositionPassengerTrain();
+        return XMLFileParsing.readXMLfileComposition(nameFile);
     }
 }

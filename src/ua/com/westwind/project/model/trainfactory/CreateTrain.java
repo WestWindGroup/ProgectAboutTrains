@@ -4,6 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import ua.com.westwind.project.model.Train;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,18 +13,20 @@ import java.io.File;
 public class CreateTrain {
     private String pathFile;
     private String typeTrain;
-    public void routeTrainInObjectTrain(String route){
+
+    public Train routeTrainInObjectTrain(String route){
         returnDataAboutTrain(route);
-        returnTrain();
+        return returnTrain().createTrain();
     }
-    private void returnTrain(){
+    private TrainFactory returnTrain(){
         if(typeTrain.equals("CompositionPassengerTrain")){
-            new CompositionPassengerTrainFactory(pathFile);
+            return new CompositionPassengerTrainFactory(pathFile);
         }else if(typeTrain.equals("IntercityTrain")){
-            new IntercityTrainFactory(pathFile);
+            return new IntercityTrainFactory(pathFile);
         }else if(typeTrain.equals("CompositionFreightTrain")){
-            new CompositionFreightTrainFactory(pathFile);
+            return new CompositionFreightTrainFactory(pathFile);
         }
+        return null;
     }
 
     private void returnDataAboutTrain(String nameRoute){
@@ -42,7 +45,7 @@ public class CreateTrain {
                 if(nodeList.item(i).getNodeName().equals("route")){
                     NamedNodeMap nodeMap = nodeList.item(i).getAttributes();
                     for (int j = 0; j < nodeMap.getLength(); j ++){
-                        if(nodeMap.item(j).getNodeName().equals(nameRoute)){
+                        if(nodeMap.item(j).getNodeValue().equals(nameRoute)){
                             NodeList nodeListElement = nodeList.item(i).getChildNodes();
                             for (int k = 0; k < nodeListElement.getLength(); k++) {
                                 if(nodeListElement.item(k).getNodeName().equals("typeTrain")){

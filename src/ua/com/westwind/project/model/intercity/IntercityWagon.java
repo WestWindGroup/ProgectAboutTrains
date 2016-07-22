@@ -1,6 +1,8 @@
 package ua.com.westwind.project.model.intercity;
 
 import ua.com.westwind.project.model.wagons.passengerwagons.*;
+import ua.com.westwind.project.model.wagons.place.Place;
+import ua.com.westwind.project.model.wagons.place.TypeIntercityPlace;
 
 import java.util.ArrayList;
 

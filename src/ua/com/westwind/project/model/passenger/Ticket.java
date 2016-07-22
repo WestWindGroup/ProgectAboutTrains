@@ -1,4 +1,4 @@
-package ua.com.westwind.project.model.compositiontarins;
+package ua.com.westwind.project.model.passenger;
 
 public class Ticket {
     private final int numberWagon;

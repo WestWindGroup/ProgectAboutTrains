@@ -1,8 +1,5 @@
 package ua.com.westwind.project.model.trainfactory;
 
-import ua.com.westwind.project.model.Train;
-import ua.com.westwind.project.model.compositiontarins.CompositionFreightTrain;
-
 public class CompositionFreightTrainFactory implements TrainFactory{
     private String nameFile;
 

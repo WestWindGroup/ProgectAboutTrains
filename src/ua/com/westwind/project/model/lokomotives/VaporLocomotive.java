@@ -1,7 +1,5 @@
 package ua.com.westwind.project.model.lokomotives;
 
-import ua.com.westwind.project.model.Locomotives;
-
 public class VaporLocomotive implements Locomotives {
 
     private final String NAME_LOCOMOTIVE = "VaporLocomotive";

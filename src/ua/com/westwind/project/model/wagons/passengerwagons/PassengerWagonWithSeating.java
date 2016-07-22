@@ -1,5 +1,8 @@
 package ua.com.westwind.project.model.wagons.passengerwagons;
 
+import ua.com.westwind.project.model.wagons.place.Place;
+import ua.com.westwind.project.model.wagons.place.TypePassengerPlace;
+
 import java.util.ArrayList;
 
 public class PassengerWagonWithSeating extends PassengerWagon {

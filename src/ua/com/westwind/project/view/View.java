@@ -1,6 +1,6 @@
 package ua.com.westwind.project.view;
 
-import ua.com.westwind.project.model.Train;
+import ua.com.westwind.project.model.trainfactory.Train;
 
 public abstract class View {
 

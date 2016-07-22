@@ -1,8 +1,8 @@
-package ua.com.westwind.project.model.compositiontarins;
+package ua.com.westwind.project.model.passenger;
 
 public class Baggage {
     private double massBaggage;
-    String formattedDouble;
+    private String formattedDouble;
 
     public Baggage(double massBaggage) {
         this.massBaggage = massBaggage;

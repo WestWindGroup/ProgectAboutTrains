@@ -1,6 +1,7 @@
 package ua.com.westwind.project.model.wagons.passengerwagons;
 
-import ua.com.westwind.project.model.Wagons;
+import ua.com.westwind.project.model.wagons.Wagons;
+import ua.com.westwind.project.model.wagons.place.Place;
 
 import java.util.ArrayList;
 

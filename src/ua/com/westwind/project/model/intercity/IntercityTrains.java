@@ -1,19 +1,18 @@
 package ua.com.westwind.project.model.intercity;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import ua.com.westwind.project.model.RollingStock;
-import ua.com.westwind.project.model.Train;
-import ua.com.westwind.project.model.compositiontarins.Passenger;
+import ua.com.westwind.project.model.trainfactory.Train;
+import ua.com.westwind.project.model.passenger.Passenger;
 import ua.com.westwind.project.model.trainfactory.RandomFillPassengerTrain;
+import ua.com.westwind.project.model.trainfactory.XMLFileParsing;
 import ua.com.westwind.project.model.wagons.passengerwagons.IntercityTypeWagon;
+import ua.com.westwind.project.model.wagons.passengerwagons.TypeWagon;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.util.ArrayList;
+
+import static ua.com.westwind.project.model.wagons.passengerwagons.IntercityTypeWagon.WAGON_1_AND_2_CLASSES;
+import static ua.com.westwind.project.model.wagons.passengerwagons.IntercityTypeWagon.WAGON_1_CLASS;
+import static ua.com.westwind.project.model.wagons.passengerwagons.IntercityTypeWagon.WAGON_2_CLASS;
 
 public abstract class IntercityTrains implements RollingStock, Train {
     private final String TYPE_TRAIN = "IntercityTrain";
@@ -23,93 +22,93 @@ public abstract class IntercityTrains implements RollingStock, Train {
     protected int countWagonSecondClass;
     protected int countWagonFirstAndSecondClass;
     protected ArrayList<IntercityWagon> listInterCityWagon = new ArrayList<>();
-    ArrayList<Passenger> listPassengers;
+    protected ArrayList<Passenger> listPassengers = new ArrayList<>();
 
     @Override
     public String returnTypeTrain() {
         return TYPE_TRAIN;
     }
 
-    protected void parsingXML(){
-        final String PATH = "IntercityTrainInfo.xml";
+    protected void parsingXML() {
 
-        File input = new File(PATH);
-
-        try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(input);
-            doc.getDocumentElement().normalize();
-            parseNode(doc.getDocumentElement());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void parseNode(Node node) {
-        NodeList nodeList = node.getChildNodes();
-        for (int i = 0; i < nodeList.getLength(); i++){
-            if(nodeList.item(i).getNodeName().equals(nameTrain)){
-                NodeList nodeListElement = nodeList.item(i).getChildNodes();
-                for (int j = 0; j < nodeListElement.getLength(); j++) {
-                    if(nodeListElement.item(j).getNodeName().equals("#text")){
-                        continue;
-                    }
-                    IntercityWagon intercityWagon = parsingElement(nodeListElement.item(j));
-                    listInterCityWagon.add(intercityWagon);
-                }
-            }
-        }
+        XMLFileParsing.parsingXMLIntercityTrainInfo(nameTrain, listInterCityWagon);
         RandomFillPassengerTrain randomFillPassengerTrain = new RandomFillPassengerTrain();
-
         listPassengers = randomFillPassengerTrain.fillPassengers(listInterCityWagon);
     }
 
-    private IntercityWagon parsingElement(Node node){
-        IntercityTypeWagon typeWagon = null;
-        int countPlaceFirstClass = 0;
-        int countPlaceSecondClass = 0;
-        NamedNodeMap nodeMap = node.getAttributes();
-        if (nodeMap != null) {
-            for (int i = 0; i < nodeMap.getLength(); i ++){
-                if(nodeMap.item(i).getNodeName().equals("type")){
-                    typeWagon = IntercityTypeWagon.valueOf(nodeMap.item(i).getNodeValue());
-                    switch (typeWagon) {
-                        case WAGON_1_CLASS:
-                            countWagonFirstClass++;
-                            break;
 
-                        case WAGON_2_CLASS:
-                            countWagonSecondClass++;
-                            break;
+    public String getTYPE_TRAIN() {
+        return TYPE_TRAIN;
+    }
 
-                        case WAGON_1_AND_2_CLASSES:
-                            countWagonFirstAndSecondClass++;
-                            break;
-                    }
-                    continue;
-                }
-                if(nodeMap.item(i).getNodeName().equals("countPlace1")){
-                    countPlaceFirstClass = Integer.parseInt(nodeMap.item(i).getNodeValue());
-                    continue;
-                }
-                if(nodeMap.item(i).getNodeName().equals("countPlace2")){
-                    countPlaceSecondClass = Integer.parseInt(nodeMap.item(i).getNodeValue());
-                    continue;
-                }
+    public String getNameTrain() {
+        return nameTrain;
+    }
+
+    public int getCountWagonAmount() {
+        return countWagonAmount;
+    }
+
+    public int getCountWagonFirstClass() {
+        return countWagonFirstClass;
+    }
+
+    public void setCountWagonFirstClass(int countWagonFirstClass) {
+        this.countWagonFirstClass = countWagonFirstClass;
+    }
+
+    public int getCountWagonSecondClass() {
+        return countWagonSecondClass;
+    }
+
+    public void setCountWagonSecondClass(int countWagonSecondClass) {
+        this.countWagonSecondClass = countWagonSecondClass;
+    }
+
+    public int getCountWagonFirstAndSecondClass() {
+        return countWagonFirstAndSecondClass;
+    }
+
+    public void setCountWagonFirstAndSecondClass(int countWagonFirstAndSecondClass) {
+        this.countWagonFirstAndSecondClass = countWagonFirstAndSecondClass;
+    }
+
+    public ArrayList<IntercityWagon> getListInterCityWagon() {
+        return listInterCityWagon;
+    }
+
+    public ArrayList<Passenger> getListPassengers() {
+        return listPassengers;
+    }
+
+    private void countWagonClass() {
+        for (int i = 0; i < listInterCityWagon.size(); i++) {
+            int h = listInterCityWagon.get(i).getPassengerTypeWagon().getComfortLevel();
+            switch (h) {
+                case 0:
+                    countWagonFirstClass++;
+                    break;
+
+                case 1:
+                    countWagonSecondClass++;
+                    break;
+
+                case 2:
+                    countWagonFirstAndSecondClass++;
+                    break;
             }
         }
-        return new IntercityWagon(typeWagon,countPlaceFirstClass,countPlaceSecondClass);
     }
+
 
     @Override
     public void showTrain() {
 
-        for(int i = 0; i < listInterCityWagon.size(); i++){
+        for (int i = 0; i < listInterCityWagon.size(); i++) {
+            System.out.println();
             System.out.println(listInterCityWagon.get(i));
-            for (Passenger passenger: listPassengers) {
-                if(passenger.getTicket().getNumberWagon() == i + 1){
+            for (Passenger passenger : listPassengers) {
+                if (passenger.getTicket().getNumberWagon() == i + 1) {
                     System.out.println(passenger);
                 }
             }

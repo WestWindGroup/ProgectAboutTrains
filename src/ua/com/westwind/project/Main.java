@@ -2,12 +2,11 @@ package ua.com.westwind.project;
 
 
 import ua.com.westwind.project.controller.Controller;
-import ua.com.westwind.project.model.Train;
-import ua.com.westwind.project.model.intercity.*;
+import ua.com.westwind.project.model.compositiontarins.CompositionPassengerTrain;
+import ua.com.westwind.project.model.compositiontarins.CompositionTrain;
+import ua.com.westwind.project.model.trainfactory.CompositionPassengerTrainFactory;
+import ua.com.westwind.project.model.trainfactory.Train;
 import ua.com.westwind.project.model.trainfactory.CreateTrain;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 
@@ -22,7 +21,7 @@ public class Main {
 //        }
         CreateTrain createTrain = new CreateTrain();
 
-        Train train = createTrain.routeTrainInObjectTrain("LvivKiev");
+        Train train = createTrain.routeTrainInObjectTrain("LvivKiev");//KharkovOdessa  LvivKiev
 
         Controller controller = new Controller();
         controller.showTrainInConsole(train);

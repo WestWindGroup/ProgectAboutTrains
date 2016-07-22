@@ -1,6 +1,8 @@
-package ua.com.westwind.project.model.wagons.passengerwagons;
+package ua.com.westwind.project.model.wagons.place;
 
-public enum TypePassengerPlace implements TypePlace{
+import ua.com.westwind.project.model.wagons.place.TypePlace;
+
+public enum TypePassengerPlace implements TypePlace {
 
     SEAT_PLACE(0),
     DOWN_PLACE(1),

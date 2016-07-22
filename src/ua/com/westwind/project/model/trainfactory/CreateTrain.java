@@ -4,7 +4,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import ua.com.westwind.project.model.Train;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,6 +17,7 @@ public class CreateTrain {
         returnDataAboutTrain(route);
         return returnTrain().createTrain();
     }
+
     private TrainFactory returnTrain(){
         if(typeTrain.equals("CompositionPassengerTrain")){
             return new CompositionPassengerTrainFactory(pathFile);
@@ -29,55 +29,10 @@ public class CreateTrain {
         return null;
     }
 
-    private void returnDataAboutTrain(String nameRoute){
-        final String PATH = "BaseRouteTrains.xml";
+    private void returnDataAboutTrain(String route){
 
-        File input = new File(PATH);
+        typeTrain = XMLFileParsing.returnDataAboutTrain(route,"typeTrain");
+        pathFile = XMLFileParsing.returnDataAboutTrain(route,"file");
 
-        try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(input);
-            doc.getDocumentElement().normalize();
-            NodeList nodeList = doc.getDocumentElement().getChildNodes();
-
-            for (int i = 0; i < nodeList.getLength(); i++){
-                if(nodeList.item(i).getNodeName().equals("route")){
-                    NamedNodeMap nodeMap = nodeList.item(i).getAttributes();
-                    for (int j = 0; j < nodeMap.getLength(); j ++){
-                        if(nodeMap.item(j).getNodeValue().equals(nameRoute)){
-                            NodeList nodeListElement = nodeList.item(i).getChildNodes();
-                            for (int k = 0; k < nodeListElement.getLength(); k++) {
-                                if(nodeListElement.item(k).getNodeName().equals("typeTrain")){
-                                    typeTrain = getElementContent(nodeListElement.item(k));
-                                }
-                                if(nodeListElement.item(k).getNodeName().equals("file")){
-                                    pathFile = getElementContent(nodeListElement.item(k));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
-
-    }
-    private String getElementContent(Node node) {
-
-        Node contentNode = node.getFirstChild();
-        if (contentNode != null)
-
-            if (contentNode.getNodeName().equals("#text")) {
-                String value = contentNode.getNodeValue();
-                if (value != null)
-                    return value.trim();
-            }
-        return null;
     }
 }

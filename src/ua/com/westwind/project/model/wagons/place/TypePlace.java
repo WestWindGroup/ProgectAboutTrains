@@ -1,4 +1,4 @@
-package ua.com.westwind.project.model.wagons.passengerwagons;
+package ua.com.westwind.project.model.wagons.place;
 
 public interface TypePlace {
 

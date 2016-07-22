@@ -1,4 +1,6 @@
-package ua.com.westwind.project.model.wagons.passengerwagons;
+package ua.com.westwind.project.model.wagons.place;
+
+import ua.com.westwind.project.model.wagons.place.TypePlace;
 
 public class Place {
     private int numberPlace;

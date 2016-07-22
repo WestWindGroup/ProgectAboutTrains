@@ -1,8 +1,8 @@
 package ua.com.westwind.project.model.compositiontarins;
 
-import ua.com.westwind.project.model.Locomotives;
-import ua.com.westwind.project.model.Train;
-import ua.com.westwind.project.model.Wagons;
+import ua.com.westwind.project.model.lokomotives.Locomotives;
+import ua.com.westwind.project.model.trainfactory.Train;
+import ua.com.westwind.project.model.wagons.Wagons;
 
 import java.util.ArrayList;
 

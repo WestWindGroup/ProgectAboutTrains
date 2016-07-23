@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE LvivKremenchuk>
-<LvivKremenchuk>
+<!DOCTYPE Lviv-Kremenchuk>
+<Lviv-Kremenchuk>
     <locomotive count="2" type="ElectricLocomotive"></locomotive>
+    <wagon count="7" type="EconomPassengerWagon"></wagon>
     <wagon count="2" type="CoupeSVWagon"></wagon>
     <wagon count="5" type="CoupeNormalWagon"></wagon>
-    <wagon count="7" type="EconomPassengerWagon"></wagon>
     <wagon count="2" type="PassengerWagonWithSeating"></wagon>
     <wagon count="2" type="CoupeWagonWithSeating"></wagon>
-</LvivKremenchuk>
+</Lviv-Kremenchuk>

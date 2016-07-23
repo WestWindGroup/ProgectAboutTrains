@@ -40,8 +40,8 @@ public class Place {
 
     @Override
     public String toString() {
-        return "Place : " +
+        return "\nPlace : " +
                 "numberPlace = " + numberPlace +
-                ", typePlace = " + typePlace + "\n" ;
+                ", typePlace = " + typePlace;
     }
 }

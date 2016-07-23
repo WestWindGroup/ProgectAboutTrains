@@ -4,8 +4,11 @@ import ua.com.westwind.project.model.trainfactory.Train;
 
 public abstract class View {
 
-    public void showTrainInConsole(Train train) {
+    protected void showTrainInConsole(Train train) {
         train.showTrain();
+    }
+    protected void showString(String str) {
+        System.out.println(str);
     }
 
 

@@ -1,27 +1,25 @@
 package ua.com.westwind.project.model.intercity;
 
 import ua.com.westwind.project.model.RollingStock;
+import ua.com.westwind.project.model.trainfactory.PassengerTrains;
 import ua.com.westwind.project.model.trainfactory.Train;
 import ua.com.westwind.project.model.passenger.Passenger;
 import ua.com.westwind.project.model.trainfactory.RandomFillPassengerTrain;
 import ua.com.westwind.project.model.trainfactory.XMLFileParsing;
-import ua.com.westwind.project.model.wagons.passengerwagons.IntercityTypeWagon;
-import ua.com.westwind.project.model.wagons.passengerwagons.TypeWagon;
+import ua.com.westwind.project.model.wagons.passengerwagons.PassengerWagon;
 
 import java.util.ArrayList;
 
-import static ua.com.westwind.project.model.wagons.passengerwagons.IntercityTypeWagon.WAGON_1_AND_2_CLASSES;
-import static ua.com.westwind.project.model.wagons.passengerwagons.IntercityTypeWagon.WAGON_1_CLASS;
-import static ua.com.westwind.project.model.wagons.passengerwagons.IntercityTypeWagon.WAGON_2_CLASS;
+public abstract class IntercityTrains implements RollingStock, PassengerTrains {
 
-public abstract class IntercityTrains implements RollingStock, Train {
     private final String TYPE_TRAIN = "IntercityTrain";
+    protected String route;
     protected String nameTrain;
     protected int countWagonAmount;
     protected int countWagonFirstClass;
     protected int countWagonSecondClass;
     protected int countWagonFirstAndSecondClass;
-    protected ArrayList<IntercityWagon> listInterCityWagon = new ArrayList<>();
+    protected ArrayList<PassengerWagon> listInterCityWagon = new ArrayList<>();
     protected ArrayList<Passenger> listPassengers = new ArrayList<>();
 
     @Override
@@ -73,12 +71,13 @@ public abstract class IntercityTrains implements RollingStock, Train {
         this.countWagonFirstAndSecondClass = countWagonFirstAndSecondClass;
     }
 
-    public ArrayList<IntercityWagon> getListInterCityWagon() {
-        return listInterCityWagon;
-    }
-
     public ArrayList<Passenger> getListPassengers() {
         return listPassengers;
+    }
+
+    @Override
+    public ArrayList<PassengerWagon> getListPassengerWagon() {
+        return listInterCityWagon;
     }
 
     private void countWagonClass() {
@@ -90,30 +89,36 @@ public abstract class IntercityTrains implements RollingStock, Train {
                     break;
 
                 case 1:
-                    countWagonSecondClass++;
+                    countWagonFirstAndSecondClass++;
                     break;
 
                 case 2:
-                    countWagonFirstAndSecondClass++;
+                    countWagonSecondClass++;
                     break;
             }
         }
     }
 
-
     @Override
     public void showTrain() {
-
-        for (int i = 0; i < listInterCityWagon.size(); i++) {
-            System.out.println();
+        printLine();
+        System.out.println(nameTrain + " ---- IntrcityTrain ---- " + "route " + "\"" + route + "\"");
+        printLine();
+        for(int i = 0; i < listInterCityWagon.size(); i++){
             System.out.println(listInterCityWagon.get(i));
-            for (Passenger passenger : listPassengers) {
-                if (passenger.getTicket().getNumberWagon() == i + 1) {
+            printLine();
+            for (Passenger passenger: listPassengers) {
+                if(passenger.getTicket().getNumberWagon() == i + 1){
                     System.out.println(passenger);
                 }
             }
+            printLine();
         }
     }
+    private void printLine(){
+        System.out.println("---------------------------------------------------------------------------------------------------");
+    }
+
 
     @Override
     public String toString() {

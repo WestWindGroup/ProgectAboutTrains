@@ -23,8 +23,8 @@ public class Passenger {
 
     @Override
     public String toString() {
-        return "Passenger -> " + ticket +
-                "," + baggage;
+        String str = String.format("|  %9s  |", "Passenger");
+        return str + ticket +  baggage;
     }
 
     @Override

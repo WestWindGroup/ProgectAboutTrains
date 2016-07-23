@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class XMLFileParsing {
 
 
-    public static Train readXMLfileIntercity(String nameFile){
+    public static PassengerTrains readXMLfileIntercity(String route,String nameFile){
 
         NodeList nodeList = createNodeList(nameFile);
 
@@ -31,13 +31,13 @@ public class XMLFileParsing {
                     if(nodeMap.item(j).getNodeName().equals("name")){
                         String help = nodeMap.item(j).getNodeValue();
                         if(help.equals("Hyundai")){
-                            return new HyundaiIntercityTrains();
+                            return new HyundaiIntercityTrains(route);
                         }else if(help.equals("Skoda")){
-                            return new SkodaIntercityTrains();
+                            return new SkodaIntercityTrains(route);
                         }else if(help.equals("Tarpan")){
-                            return new TarpanIntercityTrains();
+                            return new TarpanIntercityTrains(route);
                         }else if(help.equals("LocomotiveTraction")){
-                            return new TrainLocomotiveTraction();
+                            return new TrainLocomotiveTraction(route);
                         }
                     }
                 }
@@ -47,7 +47,7 @@ public class XMLFileParsing {
     }
 
     public static void parsingXMLIntercityTrainInfo(String nameTrain,
-                                                    ArrayList<IntercityWagon> listInterCityWagon){
+                                                    ArrayList<PassengerWagon> listInterCityWagon){
         final String PATH = "IntercityTrainInfo.xml";
 
         NodeList nodeList = createNodeList(PATH);
@@ -90,7 +90,7 @@ public class XMLFileParsing {
         return new IntercityWagon(typeWagon,countPlaceFirstClass,countPlaceSecondClass);
     }
 
-    public static CompositionPassengerTrain readXMLfileComposition(String nameFile){
+    public static CompositionPassengerTrain readXMLfileComposition(String route,String nameFile){
         ArrayList<Locomotives> listL = new ArrayList<>();
         ArrayList<PassengerWagon> listW = new ArrayList<>();
         ArrayList<Passenger> listP;
@@ -130,13 +130,12 @@ public class XMLFileParsing {
         RandomFillPassengerTrain randomFillPassengerTrain = new RandomFillPassengerTrain();
         listP = randomFillPassengerTrain.fillPassengers(listW);
 
-        return new CompositionPassengerTrain(listL,listW,listP);
+        return new CompositionPassengerTrain(route,listL,listW,listP);
     }
 
-    public static String returnDataAboutTrain(String nameRoute,String attribute){
-        final String PATH = "BaseRouteTrains.xml";
+    public static String returnDataAboutTrain(String nameRoute,String path,String attribute){
 
-        NodeList nodeList = createNodeList(PATH);
+        NodeList nodeList = createNodeList(path);
         for (int i = 0; i < nodeList.getLength(); i++){
             if(nodeList.item(i).getNodeName().equals("route")){
                 NamedNodeMap nodeMap = nodeList.item(i).getAttributes();

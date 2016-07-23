@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE LvivKiev>
-<LvivKiev>
+<!DOCTYPE Lviv-Kiev>
+<Lviv-Kiev>
     <intercityTrain name="Tarpan"></intercityTrain>
-</LvivKiev>
+</Lviv-Kiev>

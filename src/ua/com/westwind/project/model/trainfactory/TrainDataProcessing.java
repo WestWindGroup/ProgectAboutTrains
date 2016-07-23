@@ -1,0 +1,59 @@
+package ua.com.westwind.project.model.trainfactory;
+
+import ua.com.westwind.project.model.wagons.passengerwagons.PassengerWagon;
+
+public class TrainDataProcessing {
+    private String pathFile;
+    private String typeTrain;
+    private final String BASE_ROUTES_PASSENGER_TRAINS = "BaseRoutesPassengerTrains.xml";
+    private final String BASE_ROUTES_FREIGHT_TRAINS = "BaseRoutesFreightTrains.xml";
+
+    public PassengerTrains routePassengerTrainInObjectTrain(String route){
+        returnDataAboutTrain(route,BASE_ROUTES_PASSENGER_TRAINS);
+        return returnPassengerTrain().createTrain(route);
+    }
+
+    public FreightTrains routeFreightTrainInObjectTrain(String route){
+        returnDataAboutTrain(route,BASE_ROUTES_FREIGHT_TRAINS);
+        return returnFreightTrain().createTrain(route);
+    }
+
+    private PassengerTrainFactory returnPassengerTrain(){
+        if(typeTrain.equals("CompositionPassengerTrain")){
+            return new CompositionPassengerTrainFactory(pathFile);
+        }else if(typeTrain.equals("IntercityTrain")){
+            return new IntercityPassengerTrainFactory(pathFile);
+        }
+        return null;
+    }
+
+    private FreightTrainFactory returnFreightTrain() {
+        if(typeTrain.equals("CompositionFreightTrain")){
+            return new CompositionFreightTrainFactory(pathFile);
+        }
+        return null;
+    }
+
+    private void returnDataAboutTrain(String route, String fileBase){
+
+        typeTrain = XMLFileParsing.returnDataAboutTrain(route,fileBase,"typeTrain");
+        pathFile = XMLFileParsing.returnDataAboutTrain(route,fileBase,"file");
+
+    }
+
+    public int countBusyPlacesInTrain(PassengerTrains train){
+        int countPasseger = 0;
+        for (PassengerWagon passengerW:train.getListPassengerWagon()) {
+            countPasseger += passengerW.getCountBusyPlace();
+        }
+        return countPasseger;
+    }
+
+    public double countAllMassBaggegeInTrain(PassengerTrains train){
+        double allMassBaggege = 0;
+        for (PassengerWagon passengerW:train.getListPassengerWagon()) {
+            allMassBaggege += passengerW.getAllMassBaggege();
+        }
+        return allMassBaggege;
+    }
+}

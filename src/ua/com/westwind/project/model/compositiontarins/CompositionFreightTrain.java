@@ -1,12 +1,13 @@
 package ua.com.westwind.project.model.compositiontarins;
 
 import ua.com.westwind.project.model.lokomotives.Locomotives;
+import ua.com.westwind.project.model.trainfactory.FreightTrains;
 import ua.com.westwind.project.model.wagons.Wagons;
 import ua.com.westwind.project.model.wagons.freightwagons.FreightWagon;
 
 import java.util.ArrayList;
 
-public class CompositionFreightTrain extends CompositionTrain{
+public class CompositionFreightTrain extends CompositionTrain implements FreightTrains{
 
     private final String TYPE_TRAIN = "CompositionFreightTrain";
 

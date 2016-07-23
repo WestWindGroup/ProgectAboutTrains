@@ -1,6 +1,6 @@
 package ua.com.westwind.project.model.trainfactory;
 
-public class CompositionPassengerTrainFactory implements TrainFactory{
+public class CompositionPassengerTrainFactory implements PassengerTrainFactory {
 
     private String nameFile;
 
@@ -9,7 +9,7 @@ public class CompositionPassengerTrainFactory implements TrainFactory{
     }
 
     @Override
-    public Train createTrain() {
-        return XMLFileParsing.readXMLfileComposition(nameFile);
+    public PassengerTrains createTrain(String route) {
+        return XMLFileParsing.readXMLfileComposition(route,nameFile);
     }
 }

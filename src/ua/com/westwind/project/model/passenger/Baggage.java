@@ -15,8 +15,12 @@ public class Baggage {
 
     @Override
     public String toString() {
-        return " Baggage: " +
-                "massBaggage = " + formattedDouble ;
+
+        String strBaggage = String.format("%12s","| Baggage : ");
+        String strMassBaggage = String.format("%14s","massBaggage = ");
+        String strMassBaggageNum = String.format("%5s |",formattedDouble);
+
+        return strBaggage + strMassBaggage + strMassBaggageNum;
     }
 
     @Override

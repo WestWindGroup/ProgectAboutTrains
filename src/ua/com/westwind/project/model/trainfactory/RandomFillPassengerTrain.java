@@ -20,9 +20,14 @@ public class RandomFillPassengerTrain {
         for (int i = 0; i < listWagon.size(); i++) {
             for (int j = 0; j < listWagon.get(i).getListPlace().size(); j++) {
                 if(random.nextBoolean()){
-                    Passenger passenger = new Passenger(new Ticket(i + 1,j + 1),new Baggage(Math.random() * maxMassBaggage));
+                    double massBaggege = Math.random() * maxMassBaggage;
+                    if(massBaggege < 1){
+                        massBaggege += 5;
+                    }
+                    Passenger passenger = new Passenger(new Ticket(i + 1,j + 1),new Baggage(massBaggege));
                     listWagon.get(i).getListPlace().get(j).setBusy(true);
                     listWagon.get(i).setCountBusyPlace(listWagon.get(i).getCountBusyPlace() + 1);
+                    listWagon.get(i).setAllMassBaggege(listWagon.get(i).getAllMassBaggege() + massBaggege);
                     listPassenger.add(passenger);
                 }
             }

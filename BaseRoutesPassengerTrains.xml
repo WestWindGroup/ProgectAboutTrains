@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE baseTrain>
+<baseTrain>
+    <route nameRoute="Lviv-Kremenchuk">
+        <typeTrain>CompositionPassengerTrain</typeTrain>
+        <file>Lviv-Kremenchuk.xml</file>
+    </route>
+    <route nameRoute="Lviv-Kiev">
+        <typeTrain>IntercityTrain</typeTrain>
+        <file>Lviv-Kiev.xml</file>
+    </route>
+    <route nameRoute="Lviv-Dnepr">
+        <typeTrain>IntercityTrain</typeTrain>
+        <file>Lviv-Dnepr.xml</file>
+    </route>
+    <route nameRoute="Poltava-Kharkov">
+        <typeTrain>IntercityTrain</typeTrain>
+        <file>Poltava-Kharkov.xml</file>
+    </route>
+    <route nameRoute="Kharkov-Odessa">
+        <typeTrain>CompositionPassengerTrain</typeTrain>
+        <file>Kharkov-Odessa.xml</file>
+    </route>
+</baseTrain>

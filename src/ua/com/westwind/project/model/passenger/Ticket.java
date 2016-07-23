@@ -20,9 +20,13 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket : " +
-                "numberWagon=" + numberWagon +
-                " numberPlace=" + numberPlace;
+        String strTicket = String.format("| %10s","Ticket : ");
+        String strNumberWagon = String.format("%14s","numberWagon = ");
+        String strNumeralWagon = String.format("%2s ,",numberWagon);
+        String strNumberPlace = String.format("%15s"," numberPlace = ");
+        String strNumeralPlace = String.format("%3s  |",numberPlace);
+
+        return strTicket + strNumberWagon + strNumeralWagon + strNumberPlace + strNumeralPlace;
     }
 
     @Override

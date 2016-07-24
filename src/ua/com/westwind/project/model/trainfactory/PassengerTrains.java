@@ -10,4 +10,5 @@ public interface PassengerTrains extends Train  {
 
     ArrayList<Passenger> getListPassengers();
     ArrayList<PassengerWagon> getListPassengerWagon();
+    String getRoute();
 }

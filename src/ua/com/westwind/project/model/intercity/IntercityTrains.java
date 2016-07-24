@@ -80,6 +80,11 @@ public abstract class IntercityTrains implements RollingStock, PassengerTrains {
         return listInterCityWagon;
     }
 
+    @Override
+    public String getRoute() {
+        return route;
+    }
+
     private void countWagonClass() {
         for (int i = 0; i < listInterCityWagon.size(); i++) {
             int h = listInterCityWagon.get(i).getPassengerTypeWagon().getComfortLevel();

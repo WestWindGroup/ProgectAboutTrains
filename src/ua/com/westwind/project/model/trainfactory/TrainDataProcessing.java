@@ -68,8 +68,12 @@ public class TrainDataProcessing {
                 listW.add(wagon);
             }
         }
-
-        return listW;
+        if(listW.size() != 0){
+            return listW;
+        }
+        else {
+            return null;
+        }
     }
 
 }

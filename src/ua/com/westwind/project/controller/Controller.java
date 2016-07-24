@@ -9,213 +9,275 @@ import java.io.*;
 import java.util.*;
 
 public class Controller extends View {
-    private int numEndProgram;
-    private int numReturnMenuUp;
-    private int numItemListCreateTrains;
-    private int numInListTrain;
-    private int numCreateTrainInList;
 
-    private String pathToFilePassengerRoutesTrains = "Route.txt";
-    private Map<String, PassengerTrains> mapPassengerTrains = new HashMap<>();
+    private int numCreateTrainInList;
+    private Map<Integer,String> mapListTrains = new HashMap<>();
+    private Map<Integer,String> mapListCreateTrains = new HashMap<>();
+    private Map<Integer,String> mapListActionsOnTrain = new HashMap<>();
+    private Map<String, PassengerTrains> mapCreatePassengerTrains = new HashMap<>();
     private TrainDataProcessing trainDataProcessing = new TrainDataProcessing();
 
-    private Map<Integer,String> listTrain = new HashMap<>();
-    private Map<Integer,String> listCreateTrains = new HashMap<>();
-    private String listTrainString = "";
-    private String createTrain = "\nСОЗДАТЬ ПОЕЗД (например Lviv-Kremenchuk нажмите 1 , Lviv-Dnepr нажмите 3 и т.д)";
-    private String line = "--------------------------------------------------------------------------------";
-    private String endProgram = "Выход из программы";
-    private String returnMenuUp;
-    private String itemListCreateTrains = "Список созданых поездов";
-    private String listCreateTrainsString = "";
-
-    private String errorChoice = "\nТакого пункта нет в списке.\nВыбирите пожалуйста номер пункта из списка\n";
 
     private PassengerTrains createPassengerTrainFromBase(String route) {
 
         PassengerTrains train = trainDataProcessing.routePassengerTrainInObjectTrain(route);
-        if (mapPassengerTrains.put(route, train) == null) {
+        if (mapCreatePassengerTrains.put(route, train) == null) {
             numCreateTrainInList++;
-            listCreateTrainsString = listCreateTrainsString + numCreateTrainInList + ". " + route + "\n";
-            listCreateTrains.put(numCreateTrainInList,route);
+            mapListCreateTrains.put(numCreateTrainInList,route);
         }
 
         return train;
     }
 
-    public void showPassengerTrain(String route) {
-        showTrainInConsole(mapPassengerTrains.get(route));
+    private void showPassengerTrain(PassengerTrains train) {
+        showTrainInConsole(train);
     }
 
-    public void getInPassengerTrainCountPassenger(String route) {
-        int countPassenger = trainDataProcessing.countBusyPlacesInTrain(mapPassengerTrains.get(route));
-        String str = "In train " + route + " " + countPassenger + " passengers";
+    private  void getInPassengerTrainCountPassenger(PassengerTrains train) {
+        int countPassenger = trainDataProcessing.countBusyPlacesInTrain(train);
+        String str = "В поезде " + train.getRoute() + " " + countPassenger + " пассажиров";
         showString(str);
     }
 
-    public void getInPassengerTrainAllMassBaggege(String route) {
-        double allMassBaggege = trainDataProcessing.countAllMassBaggegeInTrain(mapPassengerTrains.get(route));
+    private  void getInPassengerTrainAllMassBaggege(PassengerTrains train) {
+        double allMassBaggege = trainDataProcessing.countAllMassBaggegeInTrain(train);
         String format = String.format(" %.2f", allMassBaggege);
-        String str = "In train " + route + " all mass a baggage" + format + " kg";
+        String str = "В поезде " + train.getRoute() + " общее колличество баггажа" + format + " kg";
         showString(str);
     }
 
-    public void sortPassengerTrainOfComfort(String route) {
-        PassengerTrains train = mapPassengerTrains.get(route);
+    private void sortPassengerTrainOfComfort(PassengerTrains train) {
         ArrayList<PassengerWagon> listPW = (ArrayList<PassengerWagon>) train.getListPassengerWagon().clone();
         Collections.sort(listPW);
         showPassengerWagonList(listPW);
     }
 
-    public void searchWagonByCountPassengers(String route,
+    private void searchWagonByCountPassengers(PassengerTrains train,
                                              int minCountPassengers,
                                              int maxCountPassengers) {
-        PassengerTrains train = mapPassengerTrains.get(route);
         ArrayList<PassengerWagon> listPW =
                 trainDataProcessing.searchWagonByCountPassengers(train, minCountPassengers, maxCountPassengers);
         if (listPW != null) {
             showPassengerWagonList(listPW);
         } else {
-            showString("No wagonss satisfying these conditions");
+            showString("Вагоны с колличеством пассажиров от " +
+                    minCountPassengers + " до " + maxCountPassengers +
+                    " отсутствуют\n");
         }
 
     }
 
-    public void userInterface() {
-        boolean endWork = false;
-        readFromFile();
-        try (Scanner sc = new Scanner(System.in)) {
-            while (!endWork) {
-                showString(createTrain);
-                showString(line);
-                showString(listTrainString);
-                showString(line);
-                showString(endProgram);
-                if (mapPassengerTrains.size() != 0) {
-                    showString(itemListCreateTrains);
-                }
-                showString(line);
-                int numberTrainInList = 0;
-                if (sc.hasNextInt()) {
-                    numberTrainInList = sc.nextInt();
-                    if ((numberTrainInList > 0) && (numberTrainInList <= numInListTrain)) {
-                        PassengerTrains train = createPassengerTrainFromBase(listTrain.get(numberTrainInList));
-                        if (train != null) {
-                            showString("Поезд создан");
-                            showHeadTrainInConsole(train);
-                        }
-                    } else if (numberTrainInList == numEndProgram) {
-                        endWork = true;
-                    } else if ((mapPassengerTrains.size() != 0) && (numberTrainInList == numItemListCreateTrains)) {
-                        numReturnMenuUp = listCreateTrains.size() + 1;
-                        returnMenuUp = "" + numReturnMenuUp +". Назад";
-                        workWithListCreateTrains(sc);
-                    } else {
-                        showString(errorChoice);
+    public void proogrammON(){
+        UserInterface user = new UserInterface();
+        user.userInterface();
+    }
+
+    private class UserInterface {
+
+        private int numInListTrain;
+        private int numInListActions;
+
+        private String pathToFileRoutesPassengerTrains = "Route.txt";
+        private String pathToFileListActionsOnTrain = "Actions.txt";
+        private String itemReturnMenuUp = "Назад";
+        private String itemEndProgram = "Выход из программы";
+        private String itemListCreateTrains = "Список созданых поездов";
+        private String messageErrorChoice = "\nТакого пункта нет в списке.\nВыбирите пожалуйста номер пункта из списка\n";
+        private String messageInputValue =  "Введите минимальное и максимальное колличество пассажиров в вагоне\n" +
+                "Вводимое число должно быть больше нуля и меньше 135" ;
+        private String messageErrorInputData = "Вводимое число должно быть больше нуля и меньше 135";
+        private String createTrain = "\nСОЗДАТЬ ПОЕЗД (например Lviv-Kremenchuk нажмите 1 , Lviv-Dnepr нажмите 3 и т.д)";
+        private String line = "--------------------------------------------------------------------------------";
+
+        public void userInterface() {
+            int countHelp = 0;
+            boolean endWork = false;
+            numInListTrain = readFromFileList(pathToFileRoutesPassengerTrains,
+                    mapListTrains,
+                    numInListTrain,
+                    itemEndProgram);
+            numInListActions = readFromFileList(pathToFileListActionsOnTrain,
+                    mapListActionsOnTrain,
+                    numInListActions,
+                    itemReturnMenuUp);
+            try (Scanner sc = new Scanner(System.in)) {
+                while (!endWork) {
+                    if(countHelp == 0){
+                        showString(createTrain);
+                        showString(line);
+                        showMapList(mapListTrains);
+                        showString(line);
+                        showString(line);
                     }
-                } else {
+                    if (sc.hasNextInt()) {
+                        int numberTrainInList = sc.nextInt();
+                        if ((numberTrainInList > 0) && (numberTrainInList <= numInListTrain)) {
+                            PassengerTrains train = createPassengerTrainFromBase(mapListTrains.get(numberTrainInList));
+                            mapListTrains.put(numInListTrain + 2,itemListCreateTrains);
+                            if (train != null) {
+                                showString("Поезд создан");
+                                showHeadTrainInConsole(train);
+                            }
+                        } else if (numberTrainInList == numInListTrain + 1) {
+                            endWork = true;
+                        } else if ((mapListCreateTrains.size() != 0) && (numberTrainInList == numInListTrain + 2)) {
+                            mapListCreateTrains.put(numCreateTrainInList + 1, itemReturnMenuUp);
+                            workWithListCreateTrains(sc);
+                        } else {
+                            showString(messageErrorChoice);
+                        }
+                    } else {
+                        countHelp++;
+                        sc.nextLine();
+                        if(countHelp == 1) {
+                            showString(messageErrorChoice);
+                        }
+                        else{
+                            countHelp = 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void workWithListCreateTrains(Scanner sc) {
+            int countHelp = 0;
+            boolean endWork = false;
+            while (!endWork) {
+                if(countHelp == 0) {
+                    showString(line);
+                    showString("СПИСОК СОЗДАНЫХ ПОЕЗДОВ");
+                    showString(line);
+                    showMapList(mapListCreateTrains);
+                    showString(line);
+                }
+                if (sc.hasNextInt()) {
+                    int numberTrainInList = sc.nextInt();
+                    if ((numberTrainInList > 0) && (numberTrainInList <= numCreateTrainInList)) {
+                        String help = mapListCreateTrains.get(numberTrainInList);
+                        PassengerTrains train = mapCreatePassengerTrains.get(help);
+                        workWithTrain(sc,train);
+                    } else if (numberTrainInList == numCreateTrainInList + 1) {
+                        mapListCreateTrains.remove(numCreateTrainInList + 1);
+                        endWork = true;
+                    } else {
+                        showString(messageErrorChoice);
+                    }
+                }else {
+                    countHelp++;
                     sc.nextLine();
-                    showString(errorChoice);
+                    if(countHelp == 1) {
+                        showString(messageErrorChoice);
+                    }
+                    else{
+                        countHelp = 0;
+                    }
                 }
 
             }
-        }
-    }
 
-    private void workWithListCreateTrains(Scanner sc) {
-        boolean endWork = false;
-        while (!endWork) {
-            showString(line);
-            showString("СПИСОК СОЗДАНЫХ ПОЕЗДОВ");
-            showString(line);
-            showString(listCreateTrainsString);
-            showString(line);
-            showString(returnMenuUp);
-            if (sc.hasNextInt()) {
-                int numberTrainInList = sc.nextInt();
-                if ((numberTrainInList > 0) && (numberTrainInList <= numCreateTrainInList)) {
-                    String help = listCreateTrains.get(numberTrainInList);
-                    PassengerTrains train = mapPassengerTrains.get(help);
+        }
+
+        private void workWithTrain(Scanner sc,PassengerTrains train) {
+            int countHelp = 0;
+            boolean endWork = false;
+            while (!endWork) {
+                if(countHelp == 0) {
                     showHeadTrainInConsole(train);
-                    workWithTrain(sc);
-                } else if (numberTrainInList == numReturnMenuUp) {
-                    endWork = true;
-                } else {
-                    showString(errorChoice);
+                    showString("ВОЗМОЖНЫЕ ОПЕРАЦИИ");
+                    showString(line);
+                    showMapList(mapListActionsOnTrain);
+                    showString(line);
                 }
-            }else {
-                sc.nextLine();
-                showString(errorChoice);
-            }
+                if (sc.hasNextInt()) {
+                    int numberTrainInList = sc.nextInt();
+                    if ((numberTrainInList > 0) && (numberTrainInList <= numInListActions)) {
+                        switch (numberTrainInList){
+                            case 1:
+                                getInPassengerTrainCountPassenger(train);
+                                getInPassengerTrainAllMassBaggege(train);
+                                break;
 
-        }
+                            case 2:
+                                sortPassengerTrainOfComfort(train);
+                                break;
 
-    }
+                            case 3:
+                                showString(line);
+                                showString(messageInputValue);
+                                showString(line);
+                                int one = inputMinAndMax(sc);
+                                int two = inputMinAndMax(sc);
+                                if(one <= two){
+                                    searchWagonByCountPassengers(train,one,two);
+                                }else{
+                                    searchWagonByCountPassengers(train,two,one);
+                                }
+                                break;
 
-    private void workWithTrain(Scanner sc) {
-        boolean endWork = false;
-        while (!endWork) {
-            showString("ВОЗМОЖНЫЕ ОПЕРАЦИИ");
-            showString(line);
-            showString(listCreateTrainsString);
-            showString(line);
-            showString(returnMenuUp);
-            if (sc.hasNextInt()) {
-                int numberTrainInList = sc.nextInt();
-                if ((numberTrainInList > 0) && (numberTrainInList <= numCreateTrainInList)) {
-                    String help = listCreateTrains.get(numberTrainInList);
-                    PassengerTrains train = mapPassengerTrains.get(help);
-                    showHeadTrainInConsole(train);
-                } else if (numberTrainInList == numReturnMenuUp) {
-                    endWork = true;
-                } else {
-                    showString(errorChoice);
+                            case 4:
+                                showPassengerTrain(train);
+                                break;
+                        }
+                    } else if (numberTrainInList == numInListActions + 1) {
+                        endWork = true;
+                    } else {
+                        showString(messageErrorChoice);
+                    }
+                }else {
+                    countHelp++;
+                    sc.nextLine();
+                    if(countHelp == 1) {
+                        showString(messageErrorChoice);
+                    }
+                    else{
+                        countHelp = 0;
+                    }
                 }
-            }else {
-                sc.nextLine();
-                showString(errorChoice);
             }
-
         }
 
-    }
-
-    public Map<Integer,String> readFromFile() {
-        File file = new File(pathToFilePassengerRoutesTrains);
-        Map<Integer,String> textRead = new HashMap<>();
-        try (BufferedReader rd = new BufferedReader(new FileReader(file))) {
-            String s;
-            while ((s = rd.readLine()) != null) {
-                numInListTrain++;
-                listTrain.put(numInListTrain,s);
-                listTrainString = listTrainString + numInListTrain + ". " + s + "\n";
+        private int inputMinAndMax(Scanner sc) {
+            int countHelp = 0;
+            int minCountPassengerInWagon = 0;
+            int maxCountPassengerInWagon = 135;
+            boolean endWork = false;
+            int number = 0;
+            int help = 0;
+            while (!endWork) {
+                if (sc.hasNextInt() &&
+                        ((help = sc.nextInt()) >= minCountPassengerInWagon) &&
+                        (help <= maxCountPassengerInWagon)) {
+                    number = help;
+                    endWork = true;
+                }else {
+                    countHelp++;
+                    sc.nextLine();
+                    if(countHelp == 1) {
+                        showString(messageErrorInputData);
+                    }
+                    else{
+                        countHelp = 0;
+                    }
+                }
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            return number;
         }
-        numEndProgram = numInListTrain + 1;
-        numItemListCreateTrains = numInListTrain + 2;
-        endProgram = "" + numEndProgram +". " + endProgram;
-        itemListCreateTrains = "" + numItemListCreateTrains +". " + itemListCreateTrains;
-        return textRead;
-    }
 
-    private String returnRoute(int number) {
-        return listTrain.get(number);
-    }
+        private int readFromFileList(String path,Map<Integer,String> map,int num,String str) {
+            File file = new File(path);
+            try (BufferedReader rd = new BufferedReader(new FileReader(file))) {
+                String s;
+                while ((s = rd.readLine()) != null) {
+                    num++;
+                    map.put(num,s);
+                }
 
-//    private String returnRoute(int number) {
-//        if (number == 1) {
-//            return "Lviv-Kremenchuk";
-//        } else if (number == 2) {
-//            return "Lviv-Kiev";
-//        } else if (number == 3) {
-//            return "Lviv-Dnepr";
-//        } else if (number == 4) {
-//            return "Poltava-Kharkov";
-//        } else if (number == 5) {
-//            return "Kharkov-Odessa";
-//        } else return null;
-//    }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            map.put(num + 1,str);
+            return num;
+        }
+    }
 }

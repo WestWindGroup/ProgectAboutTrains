@@ -15,6 +15,7 @@ public class CompositionPassengerTrain extends CompositionTrain implements Passe
     private ArrayList<Passenger> listPassengers;
     private ArrayList<Locomotives> listLocomotives;
     private ArrayList<PassengerWagon> listWagons;
+
     private String route;
 
     public CompositionPassengerTrain(){
@@ -68,6 +69,11 @@ public class CompositionPassengerTrain extends CompositionTrain implements Passe
 
     private void printLine(){
         System.out.println("---------------------------------------------------------------------------------------------------");
+    }
+
+
+    public String getRoute() {
+        return route;
     }
 
 

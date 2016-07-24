@@ -36,6 +36,12 @@ public class CompositionFreightTrain extends CompositionTrain implements Freight
     }
 
     @Override
+    public void showHeadTrain() {
+        System.out.println("CompositionFreightTrain");
+    }
+
+
+    @Override
     public String toString() {
         return "CompositionFreightTrain{" +
                 "TYPE_TRAIN='" + TYPE_TRAIN + '\'' +

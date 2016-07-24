@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public abstract class PassengerWagon implements Wagons,Comparable<PassengerWagon> {
 
-    protected TypeWagon typeWagon;
     protected int countPlace;
-    protected ArrayList<Place>listPlace;
     protected int countBusyPlace;
     protected double allMassBaggege;
+    protected TypeWagon typeWagon;
+    protected ArrayList<Place>listPlace;
 
     public double getAllMassBaggege() {
         return allMassBaggege;
@@ -47,6 +47,6 @@ public abstract class PassengerWagon implements Wagons,Comparable<PassengerWagon
         if(ob.getPassengerTypeWagon() == null)
             return -1;
 
-        return ob.typeWagon.getComfortLevel() - this.typeWagon.getComfortLevel();
+        return this.typeWagon.getComfortLevel() - ob.typeWagon.getComfortLevel();
     }
 }

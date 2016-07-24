@@ -29,10 +29,12 @@ public class Main {
 //        controller.getInPassengerTrainAllMassBaggege("Poltava-Kharkov");
 //        controller.sortPassengerTrainOfComfort("Poltava-Kharkov");
 
-        controller.createPassengerTrainFromBase("Lviv-Dnepr");//"Kharkov-Odessa" "Lviv-Kiev" "Poltava-Kharkov"
-        controller.showPassengerTrain("Lviv-Dnepr");
-        controller.getInPassengerTrainCountPassenger("Lviv-Dnepr");
-        controller.getInPassengerTrainAllMassBaggege("Lviv-Dnepr");
-        controller.sortPassengerTrainOfComfort("Lviv-Dnepr");
+//        controller.createPassengerTrainFromBase("Lviv-Dnepr");//"Kharkov-Odessa" "Lviv-Kiev" "Poltava-Kharkov"
+//        controller.showPassengerTrain("Lviv-Dnepr");
+//        controller.getInPassengerTrainCountPassenger("Lviv-Dnepr");
+//        controller.getInPassengerTrainAllMassBaggege("Lviv-Dnepr");
+//        controller.sortPassengerTrainOfComfort("Lviv-Dnepr");
+//        controller.searchWagonByCountPassengers("Lviv-Dnepr",10,34);
+        controller.userInterface();
     }
 }

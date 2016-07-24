@@ -42,9 +42,7 @@ public class CompositionPassengerTrain extends CompositionTrain implements Passe
 
     @Override
     public void showTrain() {
-        printLine();
-        System.out.println("CompositionPassengerTrain ---- " + "route " + "\"" + route + "\"");
-        printLine();
+        showHeadTrain();
         for (Locomotives locomotive: listLocomotives) {
             System.out.println(locomotive);
         }
@@ -60,6 +58,14 @@ public class CompositionPassengerTrain extends CompositionTrain implements Passe
             printLine();
         }
     }
+
+    @Override
+    public void showHeadTrain() {
+        printLine();
+        System.out.println("CompositionPassengerTrain ---- " + "route " + "\"" + route + "\"");
+        printLine();
+    }
+
     private void printLine(){
         System.out.println("---------------------------------------------------------------------------------------------------");
     }

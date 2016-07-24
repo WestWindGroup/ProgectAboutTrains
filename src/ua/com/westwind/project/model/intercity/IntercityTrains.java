@@ -101,9 +101,7 @@ public abstract class IntercityTrains implements RollingStock, PassengerTrains {
 
     @Override
     public void showTrain() {
-        printLine();
-        System.out.println(nameTrain + " ---- IntrcityTrain ---- " + "route " + "\"" + route + "\"");
-        printLine();
+        showHeadTrain();
         for(int i = 0; i < listInterCityWagon.size(); i++){
             System.out.println(listInterCityWagon.get(i));
             printLine();
@@ -115,6 +113,14 @@ public abstract class IntercityTrains implements RollingStock, PassengerTrains {
             printLine();
         }
     }
+
+    @Override
+    public void showHeadTrain() {
+        printLine();
+        System.out.println(nameTrain + " ---- IntrcityTrain ---- " + "route " + "\"" + route + "\"");
+        printLine();
+    }
+
     private void printLine(){
         System.out.println("---------------------------------------------------------------------------------------------------");
     }

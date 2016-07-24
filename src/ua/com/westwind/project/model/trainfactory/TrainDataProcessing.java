@@ -2,6 +2,8 @@ package ua.com.westwind.project.model.trainfactory;
 
 import ua.com.westwind.project.model.wagons.passengerwagons.PassengerWagon;
 
+import java.util.ArrayList;
+
 public class TrainDataProcessing {
     private String pathFile;
     private String typeTrain;
@@ -56,4 +58,18 @@ public class TrainDataProcessing {
         }
         return allMassBaggege;
     }
+
+    public ArrayList<PassengerWagon> searchWagonByCountPassengers(PassengerTrains train,
+                                                                  int minCountPassengers,
+                                                                  int maxCountPassengers){
+        ArrayList<PassengerWagon> listW = new ArrayList<>();
+        for (PassengerWagon wagon:train.getListPassengerWagon()) {
+            if((wagon.getCountBusyPlace() >= minCountPassengers)&&(wagon.getCountBusyPlace() <= maxCountPassengers)){
+                listW.add(wagon);
+            }
+        }
+
+        return listW;
+    }
+
 }

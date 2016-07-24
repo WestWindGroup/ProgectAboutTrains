@@ -1,0 +1,5 @@
+Lviv-Kremenchuk
+Lviv-Kiev
+Lviv-Dnepr
+Poltava-Kharkov
+Kharkov-Odessa

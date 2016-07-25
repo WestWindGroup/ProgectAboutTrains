@@ -2,7 +2,6 @@ package ua.com.westwind.project.model.intercity;
 
 import ua.com.westwind.project.model.RollingStock;
 import ua.com.westwind.project.model.trainfactory.PassengerTrains;
-import ua.com.westwind.project.model.trainfactory.Train;
 import ua.com.westwind.project.model.passenger.Passenger;
 import ua.com.westwind.project.model.trainfactory.RandomFillPassengerTrain;
 import ua.com.westwind.project.model.trainfactory.XMLFileParsing;
@@ -19,23 +18,18 @@ public abstract class IntercityTrains implements RollingStock, PassengerTrains {
     protected int countWagonFirstClass;
     protected int countWagonSecondClass;
     protected int countWagonFirstAndSecondClass;
-    protected ArrayList<PassengerWagon> listInterCityWagon = new ArrayList<>();
+    protected ArrayList<PassengerWagon> listWagons = new ArrayList<>();
     protected ArrayList<Passenger> listPassengers = new ArrayList<>();
-
-    @Override
-    public String returnTypeTrain() {
-        return TYPE_TRAIN;
-    }
 
     protected void parsingXML() {
 
-        XMLFileParsing.parsingXMLIntercityTrainInfo(nameTrain, listInterCityWagon);
+        XMLFileParsing.parsingXMLIntercityTrainInfo(nameTrain, listWagons);
         RandomFillPassengerTrain randomFillPassengerTrain = new RandomFillPassengerTrain();
-        listPassengers = randomFillPassengerTrain.fillPassengers(listInterCityWagon);
+        listPassengers = randomFillPassengerTrain.fillPassengers(route,listWagons);
     }
 
-
-    public String getTYPE_TRAIN() {
+    @Override
+    public String returnTypeTrain() {
         return TYPE_TRAIN;
     }
 
@@ -51,33 +45,12 @@ public abstract class IntercityTrains implements RollingStock, PassengerTrains {
         return countWagonFirstClass;
     }
 
-    public void setCountWagonFirstClass(int countWagonFirstClass) {
-        this.countWagonFirstClass = countWagonFirstClass;
-    }
-
     public int getCountWagonSecondClass() {
         return countWagonSecondClass;
     }
 
-    public void setCountWagonSecondClass(int countWagonSecondClass) {
-        this.countWagonSecondClass = countWagonSecondClass;
-    }
-
     public int getCountWagonFirstAndSecondClass() {
         return countWagonFirstAndSecondClass;
-    }
-
-    public void setCountWagonFirstAndSecondClass(int countWagonFirstAndSecondClass) {
-        this.countWagonFirstAndSecondClass = countWagonFirstAndSecondClass;
-    }
-
-    public ArrayList<Passenger> getListPassengers() {
-        return listPassengers;
-    }
-
-    @Override
-    public ArrayList<PassengerWagon> getListPassengerWagon() {
-        return listInterCityWagon;
     }
 
     @Override
@@ -85,9 +58,24 @@ public abstract class IntercityTrains implements RollingStock, PassengerTrains {
         return route;
     }
 
+    @Override
+    public void setRoute(String route) {
+        this.route = route;
+    }
+
+    @Override
+    public ArrayList<Passenger> getListPassengers() {
+        return listPassengers;
+    }
+
+    @Override
+    public ArrayList<PassengerWagon> getListWagons() {
+        return listWagons;
+    }
+
     private void countWagonClass() {
-        for (int i = 0; i < listInterCityWagon.size(); i++) {
-            int h = listInterCityWagon.get(i).getPassengerTypeWagon().getComfortLevel();
+        for (int i = 0; i < listWagons.size(); i++) {
+            int h = listWagons.get(i).getPassengerTypeWagon().getComfortLevel();
             switch (h) {
                 case 0:
                     countWagonFirstClass++;
@@ -107,16 +95,7 @@ public abstract class IntercityTrains implements RollingStock, PassengerTrains {
     @Override
     public void showTrain() {
         showHeadTrain();
-        for(int i = 0; i < listInterCityWagon.size(); i++){
-            System.out.println(listInterCityWagon.get(i));
-            printLine();
-            for (Passenger passenger: listPassengers) {
-                if(passenger.getTicket().getNumberWagon() == i + 1){
-                    System.out.println(passenger);
-                }
-            }
-            printLine();
-        }
+        showWagon();
     }
 
     @Override
@@ -126,20 +105,43 @@ public abstract class IntercityTrains implements RollingStock, PassengerTrains {
         printLine();
     }
 
-    private void printLine(){
-        System.out.println("---------------------------------------------------------------------------------------------------");
-    }
-
 
     @Override
     public String toString() {
-        return "IntercityTrains{" +
-                "nameTrain='" + nameTrain + '\'' +
-                ", countWagonAmount=" + countWagonAmount +
-                ", countWagonFirstClass=" + countWagonFirstClass +
-                ", countWagonSecondClass=" + countWagonSecondClass +
-                ", countWagonFirstAndSecondClass=" + countWagonFirstAndSecondClass +
-                ", listInterCityWagon=" + listInterCityWagon +
-                '}';
+        return TYPE_TRAIN +
+                " nameTrain = '" + nameTrain + '\'' +
+                ", countWagonAmount = " + countWagonAmount +
+                ", countWagonFirstClass = " + countWagonFirstClass +
+                ", countWagonSecondClass = " + countWagonSecondClass +
+                ", countWagonFirstAndSecondClass = " + countWagonFirstAndSecondClass +
+                ", listWagons = " + listWagons;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        IntercityTrains that = (IntercityTrains) o;
+
+        if (countWagonAmount != that.countWagonAmount) return false;
+        if (countWagonFirstClass != that.countWagonFirstClass) return false;
+        if (countWagonSecondClass != that.countWagonSecondClass) return false;
+        if (countWagonFirstAndSecondClass != that.countWagonFirstAndSecondClass) return false;
+        if (nameTrain != null ? !nameTrain.equals(that.nameTrain) : that.nameTrain != null) return false;
+        return listWagons != null ? listWagons.equals(that.listWagons) : that.listWagons == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nameTrain != null ? nameTrain.hashCode() : 0;
+        result = 31 * result + countWagonAmount;
+        result = 31 * result + countWagonFirstClass;
+        result = 31 * result + countWagonSecondClass;
+        result = 31 * result + countWagonFirstAndSecondClass;
+        result = 31 * result + (listWagons != null ? listWagons.hashCode() : 0);
+        return result;
+    }
+
 }

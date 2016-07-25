@@ -6,6 +6,6 @@ public class SkodaIntercityTrains extends IntercityTrains {
         this.route = route;
         nameTrain = "Skoda";
         parsingXML();
-        countWagonAmount = listInterCityWagon.size();
+        countWagonAmount = listWagons.size();
     }
 }

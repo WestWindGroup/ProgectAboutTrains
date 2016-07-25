@@ -8,7 +8,6 @@ import ua.com.westwind.project.model.trainfactory.TrainDataProcessing;
 public class Main {
 
     public static void main(String[] args) {
-        //Kharkov-Odessa  Lviv-Kiev  "Poltava-Kharkov"
 
         Controller controller = new Controller();
         controller.proogrammON();

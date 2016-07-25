@@ -25,7 +25,6 @@ public class Controller extends View {
             numCreateTrainInList++;
             mapListCreateTrains.put(numCreateTrainInList,route);
         }
-
         return train;
     }
 
@@ -47,7 +46,7 @@ public class Controller extends View {
     }
 
     private void sortPassengerTrainOfComfort(PassengerTrains train) {
-        ArrayList<PassengerWagon> listPW = (ArrayList<PassengerWagon>) train.getListPassengerWagon().clone();
+        ArrayList<PassengerWagon> listPW = (ArrayList<PassengerWagon>) train.getListWagons().clone();
         Collections.sort(listPW);
         showPassengerWagonList(listPW);
     }

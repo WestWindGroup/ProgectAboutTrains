@@ -128,7 +128,7 @@ public class XMLFileParsing {
         }
 
         RandomFillPassengerTrain randomFillPassengerTrain = new RandomFillPassengerTrain();
-        listP = randomFillPassengerTrain.fillPassengers(listW);
+        listP = randomFillPassengerTrain.fillPassengers(route,listW);
 
         return new CompositionPassengerTrain(route,listL,listW,listP);
     }

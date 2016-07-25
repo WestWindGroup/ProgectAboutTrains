@@ -2,7 +2,6 @@ package ua.com.westwind.project.model.compositiontarins;
 
 import ua.com.westwind.project.model.lokomotives.Locomotives;
 import ua.com.westwind.project.model.passenger.Passenger;
-import ua.com.westwind.project.model.trainfactory.FreightTrains;
 import ua.com.westwind.project.model.trainfactory.PassengerTrains;
 import ua.com.westwind.project.model.wagons.Wagons;
 import ua.com.westwind.project.model.wagons.passengerwagons.PassengerWagon;
@@ -11,12 +10,11 @@ import java.util.ArrayList;
 
 public class CompositionPassengerTrain extends CompositionTrain implements PassengerTrains {
 
+    private String route;
     private final String TYPE_TRAIN = "CompositionPassengerTrain";
     private ArrayList<Passenger> listPassengers;
     private ArrayList<Locomotives> listLocomotives;
     private ArrayList<PassengerWagon> listWagons;
-
-    private String route;
 
     public CompositionPassengerTrain(){
     }
@@ -42,58 +40,60 @@ public class CompositionPassengerTrain extends CompositionTrain implements Passe
     }
 
     @Override
-    public void showTrain() {
-        showHeadTrain();
-        for (Locomotives locomotive: listLocomotives) {
-            System.out.println(locomotive);
-        }
-        printLine();
-        for(int i = 0; i < listWagons.size(); i++){
-            System.out.println(listWagons.get(i));
-            printLine();
-            for (Passenger passenger: listPassengers) {
-                if(passenger.getTicket().getNumberWagon() == i + 1){
-                    System.out.println(passenger);
-                }
-            }
-            printLine();
-        }
-    }
-
-    @Override
-    public void showHeadTrain() {
-        printLine();
-        System.out.println("CompositionPassengerTrain ---- " + "route " + "\"" + route + "\"");
-        printLine();
-    }
-
-    private void printLine(){
-        System.out.println("---------------------------------------------------------------------------------------------------");
-    }
-
-
     public String getRoute() {
         return route;
     }
 
+    @Override
+    public void setRoute(String route) {
+        this.route = route;
+    }
 
+    @Override
+    public ArrayList<Locomotives> getListLocomotives() {
+        return listLocomotives;
+    }
+
+    @Override
+    public void setListLocomotives(ArrayList<Locomotives> listLocomotives) {
+        this.listLocomotives = listLocomotives;
+    }
+
+    @Override
     public ArrayList<Passenger> getListPassengers() {
         return listPassengers;
     }
 
     @Override
-    public ArrayList<PassengerWagon> getListPassengerWagon() {
+    public ArrayList<PassengerWagon> getListWagons() {
         return listWagons;
     }
 
 
     @Override
     public String toString() {
-        return "CompositionPassengerTrain\n" +
-                ", listPassengers=" + listPassengers +
-                ", listLocomotives=" + listLocomotives +
-                ", listWagons=" + listWagons +
-                '}';
+        return  TYPE_TRAIN +
+                ", listPassengers = " + listPassengers +
+                ", listLocomotives = " + listLocomotives +
+                ", listWagons = " + listWagons;
+    }
+
+    @Override
+    public void showHeadTrain() {
+        printLine();
+        System.out.println(TYPE_TRAIN + " ---- " + "route " + "\"" + route + "\"");
+        printLine();
+    }
+
+
+    @Override
+    public void showTrain() {
+        showHeadTrain();
+        for (Locomotives locomotive: listLocomotives) {
+            System.out.println(locomotive);
+        }
+        printLine();
+        showWagon();
     }
 
     @Override

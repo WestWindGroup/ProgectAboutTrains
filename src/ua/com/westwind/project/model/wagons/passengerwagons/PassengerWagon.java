@@ -49,4 +49,25 @@ public abstract class PassengerWagon implements Wagons,Comparable<PassengerWagon
 
         return this.typeWagon.getComfortLevel() - ob.typeWagon.getComfortLevel();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PassengerWagon that = (PassengerWagon) o;
+
+        if (countPlace != that.countPlace) return false;
+        if (typeWagon != null ? !typeWagon.equals(that.typeWagon) : that.typeWagon != null) return false;
+        return listPlace != null ? listPlace.equals(that.listPlace) : that.listPlace == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = countPlace;
+        result = 31 * result + (typeWagon != null ? typeWagon.hashCode() : 0);
+        result = 31 * result + (listPlace != null ? listPlace.hashCode() : 0);
+        return result;
+    }
 }

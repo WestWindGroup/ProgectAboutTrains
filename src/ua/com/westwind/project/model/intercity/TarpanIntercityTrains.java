@@ -6,6 +6,6 @@ public class TarpanIntercityTrains extends IntercityTrains {
         this.route = route;
         nameTrain = "Tarpan";
         parsingXML();
-        countWagonAmount = listInterCityWagon.size();
+        countWagonAmount = listWagons.size();
     }
 }

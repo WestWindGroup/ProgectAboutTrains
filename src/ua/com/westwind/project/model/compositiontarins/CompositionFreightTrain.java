@@ -9,7 +9,10 @@ import java.util.ArrayList;
 
 public class CompositionFreightTrain extends CompositionTrain implements FreightTrains{
 
+    private String route;
     private final String TYPE_TRAIN = "CompositionFreightTrain";
+    private ArrayList<Locomotives> listLocomotives;
+    private ArrayList<FreightWagon> listWagons;
 
     public CompositionFreightTrain() {
     }
@@ -20,13 +23,48 @@ public class CompositionFreightTrain extends CompositionTrain implements Freight
         this.listLocomotives = listLocomotives;
     }
 
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
+    }
+
+    public ArrayList<Locomotives> getListLocomotives() {
+        return listLocomotives;
+    }
+
+    public void setListLocomotives(ArrayList<Locomotives> listLocomotives) {
+        this.listLocomotives = listLocomotives;
+    }
+
+    public ArrayList<FreightWagon> getListWagons() {
+        return listWagons;
+    }
+
+    public void setListWagons(ArrayList<FreightWagon> listWagons) {
+        this.listWagons = listWagons;
+    }
+
+
     @Override
     public String returnTypeTrain() {
         return TYPE_TRAIN;
     }
 
     @Override
+    public void showHeadTrain() {
+        printLine();
+        System.out.println(TYPE_TRAIN + " ---- " + "route " + "\"" + route + "\"");
+        printLine();
+    }
+
+
+    @Override
     public void showTrain() {
+        showHeadTrain();
         for (Locomotives locomotive: listLocomotives) {
             System.out.println(locomotive);
         }
@@ -36,18 +74,10 @@ public class CompositionFreightTrain extends CompositionTrain implements Freight
     }
 
     @Override
-    public void showHeadTrain() {
-        System.out.println("CompositionFreightTrain");
-    }
-
-
-    @Override
     public String toString() {
-        return "CompositionFreightTrain{" +
-                "TYPE_TRAIN='" + TYPE_TRAIN + '\'' +
-                ", listLocomotives =" + listLocomotives +
-                ", listWagons = " + listWagons +
-                '}';
+        return "" + TYPE_TRAIN +
+                " listLocomotives = " + listLocomotives +
+                " listWagons = " + listWagons;
     }
 
     @Override

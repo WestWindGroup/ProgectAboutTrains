@@ -10,16 +10,13 @@ public class Passenger {
         this.baggage = baggage;
     }
 
-
     public Ticket getTicket() {
         return ticket;
     }
 
-
     public Baggage getBaggage() {
         return baggage;
     }
-
 
     @Override
     public String toString() {

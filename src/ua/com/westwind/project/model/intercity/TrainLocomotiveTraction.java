@@ -6,6 +6,6 @@ public class TrainLocomotiveTraction extends IntercityTrains{
         this.route = route;
         nameTrain = "LocomotiveTraction";
         parsingXML();
-        countWagonAmount = listInterCityWagon.size();
+        countWagonAmount = listWagons.size();
     }
 }

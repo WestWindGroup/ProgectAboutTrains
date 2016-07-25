@@ -9,6 +9,19 @@ import java.util.ArrayList;
 public interface PassengerTrains extends Train  {
 
     ArrayList<Passenger> getListPassengers();
-    ArrayList<PassengerWagon> getListPassengerWagon();
-    String getRoute();
+
+    ArrayList<PassengerWagon> getListWagons();
+
+    default void showWagon(){
+        for(int i = 0; i < getListWagons().size(); i++){
+            System.out.println(getListWagons().get(i));
+            printLine();
+            for (Passenger passenger: getListPassengers()) {
+                if(passenger.getTicket().getNumberWagon() == i + 1){
+                    System.out.println(passenger);
+                }
+            }
+            printLine();
+        }
+    }
 }

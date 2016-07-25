@@ -45,7 +45,7 @@ public class TrainDataProcessing {
 
     public int countBusyPlacesInTrain(PassengerTrains train){
         int countPasseger = 0;
-        for (PassengerWagon passengerW:train.getListPassengerWagon()) {
+        for (PassengerWagon passengerW:train.getListWagons()) {
             countPasseger += passengerW.getCountBusyPlace();
         }
         return countPasseger;
@@ -53,7 +53,7 @@ public class TrainDataProcessing {
 
     public double countAllMassBaggegeInTrain(PassengerTrains train){
         double allMassBaggege = 0;
-        for (PassengerWagon passengerW:train.getListPassengerWagon()) {
+        for (PassengerWagon passengerW:train.getListWagons()) {
             allMassBaggege += passengerW.getAllMassBaggege();
         }
         return allMassBaggege;
@@ -63,7 +63,7 @@ public class TrainDataProcessing {
                                                                   int minCountPassengers,
                                                                   int maxCountPassengers){
         ArrayList<PassengerWagon> listW = new ArrayList<>();
-        for (PassengerWagon wagon:train.getListPassengerWagon()) {
+        for (PassengerWagon wagon:train.getListWagons()) {
             if((wagon.getCountBusyPlace() >= minCountPassengers)&&(wagon.getCountBusyPlace() <= maxCountPassengers)){
                 listW.add(wagon);
             }

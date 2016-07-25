@@ -13,7 +13,7 @@ public class RandomFillPassengerTrain {
 
     private double maxMassBaggage = 36;
 
-    public ArrayList<Passenger> fillPassengers(List<? extends PassengerWagon> listWagon){
+    public ArrayList<Passenger> fillPassengers(String route,List<? extends PassengerWagon> listWagon){
         Random random = new Random();
         ArrayList<Passenger> listPassenger = new ArrayList<>();
 
@@ -24,7 +24,8 @@ public class RandomFillPassengerTrain {
                     if(massBaggege < 1){
                         massBaggege += 5;
                     }
-                    Passenger passenger = new Passenger(new Ticket(i + 1,j + 1),new Baggage(massBaggege));
+                    Ticket ticket = new Ticket(route,i + 1,j + 1);
+                    Passenger passenger = new Passenger(ticket,new Baggage(massBaggege,ticket));
                     listWagon.get(i).getListPlace().get(j).setBusy(true);
                     listWagon.get(i).setCountBusyPlace(listWagon.get(i).getCountBusyPlace() + 1);
                     listWagon.get(i).setAllMassBaggege(listWagon.get(i).getAllMassBaggege() + massBaggege);

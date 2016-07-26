@@ -1,6 +1,6 @@
 package ua.com.westwind.project.controller;
 
-import ua.com.westwind.project.model.trainfactory.PassengerTrains;
+import ua.com.westwind.project.model.trainfactory.PassengerTrain;
 import ua.com.westwind.project.model.trainfactory.TrainDataProcessing;
 import ua.com.westwind.project.model.wagons.passengerwagons.PassengerWagon;
 import ua.com.westwind.project.view.View;
@@ -14,13 +14,13 @@ public class Controller extends View {
     private Map<Integer,String> mapListTrains = new HashMap<>();
     private Map<Integer,String> mapListCreateTrains = new HashMap<>();
     private Map<Integer,String> mapListActionsOnTrain = new HashMap<>();
-    private Map<String, PassengerTrains> mapCreatePassengerTrains = new HashMap<>();
+    private Map<String, PassengerTrain> mapCreatePassengerTrains = new HashMap<>();
     private TrainDataProcessing trainDataProcessing = new TrainDataProcessing();
 
 
-    private PassengerTrains createPassengerTrainFromBase(String route) {
+    private PassengerTrain createPassengerTrainFromBase(String route) {
 
-        PassengerTrains train = trainDataProcessing.routePassengerTrainInObjectTrain(route);
+        PassengerTrain train = trainDataProcessing.routePassengerTrainInObjectTrain(route);
         if (mapCreatePassengerTrains.put(route, train) == null) {
             numCreateTrainInList++;
             mapListCreateTrains.put(numCreateTrainInList,route);
@@ -28,30 +28,30 @@ public class Controller extends View {
         return train;
     }
 
-    private void showPassengerTrain(PassengerTrains train) {
+    private void showPassengerTrain(PassengerTrain train) {
         showTrainInConsole(train);
     }
 
-    private  void getInPassengerTrainCountPassenger(PassengerTrains train) {
+    private  void getInPassengerTrainCountPassenger(PassengerTrain train) {
         int countPassenger = trainDataProcessing.countBusyPlacesInTrain(train);
         String str = "В поезде " + train.getRoute() + " " + countPassenger + " пассажиров";
         showString(str);
     }
 
-    private  void getInPassengerTrainAllMassBaggege(PassengerTrains train) {
+    private  void getInPassengerTrainAllMassBaggege(PassengerTrain train) {
         double allMassBaggege = trainDataProcessing.countAllMassBaggegeInTrain(train);
         String format = String.format(" %.2f", allMassBaggege);
         String str = "В поезде " + train.getRoute() + " общее колличество баггажа" + format + " kg";
         showString(str);
     }
 
-    private void sortPassengerTrainOfComfort(PassengerTrains train) {
+    private void sortPassengerTrainOfComfort(PassengerTrain train) {
         ArrayList<PassengerWagon> listPW = (ArrayList<PassengerWagon>) train.getListWagons().clone();
         Collections.sort(listPW);
         showPassengerWagonList(listPW);
     }
 
-    private void searchWagonByCountPassengers(PassengerTrains train,
+    private void searchWagonByCountPassengers(PassengerTrain train,
                                              int minCountPassengers,
                                              int maxCountPassengers) {
         ArrayList<PassengerWagon> listPW =
@@ -76,8 +76,8 @@ public class Controller extends View {
         private int numInListTrain;
         private int numInListActions;
 
-        private String pathToFileRoutesPassengerTrains = "Route.txt";
-        private String pathToFileListActionsOnTrain = "Actions.txt";
+        private String pathToFileRoutesPassengerTrains = "resources\\passenger\\Route.txt";
+        private String pathToFileListActionsOnTrain = "resources\\passenger\\Actions.txt";
         private String itemReturnMenuUp = "Назад";
         private String itemEndProgram = "Выход из программы";
         private String itemListCreateTrains = "Список созданых поездов";
@@ -86,7 +86,6 @@ public class Controller extends View {
                 "Вводимое число должно быть больше нуля и меньше 135" ;
         private String messageErrorInputData = "Вводимое число должно быть больше нуля и меньше 135";
         private String createTrain = "\nСОЗДАТЬ ПОЕЗД (например Lviv-Kremenchuk нажмите 1 , Lviv-Dnepr нажмите 3 и т.д)";
-        private String line = "--------------------------------------------------------------------------------";
 
         public void userInterface() {
             int countHelp = 0;
@@ -103,15 +102,15 @@ public class Controller extends View {
                 while (!endWork) {
                     if(countHelp == 0){
                         showString(createTrain);
-                        showString(line);
+                        printLine();
                         showMapList(mapListTrains);
-                        showString(line);
-                        showString(line);
+                        printLine();
+                        printLine();
                     }
                     if (sc.hasNextInt()) {
                         int numberTrainInList = sc.nextInt();
                         if ((numberTrainInList > 0) && (numberTrainInList <= numInListTrain)) {
-                            PassengerTrains train = createPassengerTrainFromBase(mapListTrains.get(numberTrainInList));
+                            PassengerTrain train = createPassengerTrainFromBase(mapListTrains.get(numberTrainInList));
                             mapListTrains.put(numInListTrain + 2,itemListCreateTrains);
                             if (train != null) {
                                 showString("Поезд создан");
@@ -144,17 +143,17 @@ public class Controller extends View {
             boolean endWork = false;
             while (!endWork) {
                 if(countHelp == 0) {
-                    showString(line);
+                    printLine();
                     showString("СПИСОК СОЗДАНЫХ ПОЕЗДОВ");
-                    showString(line);
+                    printLine();
                     showMapList(mapListCreateTrains);
-                    showString(line);
+                    printLine();
                 }
                 if (sc.hasNextInt()) {
                     int numberTrainInList = sc.nextInt();
                     if ((numberTrainInList > 0) && (numberTrainInList <= numCreateTrainInList)) {
                         String help = mapListCreateTrains.get(numberTrainInList);
-                        PassengerTrains train = mapCreatePassengerTrains.get(help);
+                        PassengerTrain train = mapCreatePassengerTrains.get(help);
                         workWithTrain(sc,train);
                     } else if (numberTrainInList == numCreateTrainInList + 1) {
                         mapListCreateTrains.remove(numCreateTrainInList + 1);
@@ -177,16 +176,16 @@ public class Controller extends View {
 
         }
 
-        private void workWithTrain(Scanner sc,PassengerTrains train) {
+        private void workWithTrain(Scanner sc,PassengerTrain train) {
             int countHelp = 0;
             boolean endWork = false;
             while (!endWork) {
                 if(countHelp == 0) {
                     showHeadTrainInConsole(train);
                     showString("ВОЗМОЖНЫЕ ОПЕРАЦИИ");
-                    showString(line);
+                    printLine();
                     showMapList(mapListActionsOnTrain);
-                    showString(line);
+                    printLine();
                 }
                 if (sc.hasNextInt()) {
                     int numberTrainInList = sc.nextInt();
@@ -202,9 +201,9 @@ public class Controller extends View {
                                 break;
 
                             case 3:
-                                showString(line);
+                                printLine();
                                 showString(messageInputValue);
-                                showString(line);
+                                printLine();
                                 int one = inputMinAndMax(sc);
                                 int two = inputMinAndMax(sc);
                                 if(one <= two){

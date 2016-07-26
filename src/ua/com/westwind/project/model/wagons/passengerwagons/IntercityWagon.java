@@ -1,6 +1,5 @@
-package ua.com.westwind.project.model.intercity;
+package ua.com.westwind.project.model.wagons.passengerwagons;
 
-import ua.com.westwind.project.model.wagons.passengerwagons.*;
 import ua.com.westwind.project.model.wagons.place.Place;
 import ua.com.westwind.project.model.wagons.place.TypeIntercityPlace;
 
@@ -38,25 +37,4 @@ public class IntercityWagon extends PassengerWagon {
         return countPlaceSecondClass;
     }
 
-
-
-    public int getCountBusyPlace() {
-        return countBusyPlace;
-    }
-
-    public void setCountBusyPlace(int countBusyPlace) {
-        this.countBusyPlace = countBusyPlace;
-    }
-
-    public TypeWagon getPassengerTypeWagon() {
-        return typeWagon;
-    }
-
-    public int getCountPlace() {
-        return countPlace;
-    }
-
-    public ArrayList<Place> getListPlace() {
-        return listPlace;
-    }
 }

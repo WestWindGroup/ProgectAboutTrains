@@ -1,13 +1,12 @@
 package ua.com.westwind.project.model.compositiontarins;
 
 import ua.com.westwind.project.model.lokomotives.Locomotives;
-import ua.com.westwind.project.model.trainfactory.FreightTrains;
-import ua.com.westwind.project.model.wagons.Wagons;
+import ua.com.westwind.project.model.trainfactory.FreightTrain;
 import ua.com.westwind.project.model.wagons.freightwagons.FreightWagon;
 
 import java.util.ArrayList;
 
-public class CompositionFreightTrain extends CompositionTrain implements FreightTrains{
+public class CompositionFreightTrain implements FreightTrain {
 
     private String route;
     private final String TYPE_TRAIN = "CompositionFreightTrain";
@@ -50,27 +49,8 @@ public class CompositionFreightTrain extends CompositionTrain implements Freight
 
 
     @Override
-    public String returnTypeTrain() {
+    public String getTypeTrain() {
         return TYPE_TRAIN;
-    }
-
-    @Override
-    public void showHeadTrain() {
-        printLine();
-        System.out.println(TYPE_TRAIN + " ---- " + "route " + "\"" + route + "\"");
-        printLine();
-    }
-
-
-    @Override
-    public void showTrain() {
-        showHeadTrain();
-        for (Locomotives locomotive: listLocomotives) {
-            System.out.println(locomotive);
-        }
-        for (Wagons wagon: listWagons) {
-            System.out.println(wagon);
-        }
     }
 
     @Override

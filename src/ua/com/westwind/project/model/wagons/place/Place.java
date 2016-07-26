@@ -43,4 +43,23 @@ public class Place {
                 "numberPlace = " + numberPlace +
                 ", typePlace = " + typePlace;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Place place = (Place) o;
+
+        if (numberPlace != place.numberPlace) return false;
+        return typePlace != null ? typePlace.equals(place.typePlace) : place.typePlace == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = numberPlace;
+        result = 31 * result + (typePlace != null ? typePlace.hashCode() : 0);
+        return result;
+    }
 }

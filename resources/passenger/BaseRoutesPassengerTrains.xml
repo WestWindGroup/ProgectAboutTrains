@@ -3,22 +3,22 @@
 <baseTrain>
     <route nameRoute="Lviv-Kremenchuk">
         <typeTrain>CompositionPassengerTrain</typeTrain>
-        <file>Lviv-Kremenchuk.xml</file>
+        <file>resources\\passenger\\Lviv-Kremenchuk.xml</file>
     </route>
     <route nameRoute="Lviv-Kiev">
         <typeTrain>IntercityTrain</typeTrain>
-        <file>Lviv-Kiev.xml</file>
+        <file>resources\\passenger\\Lviv-Kiev.xml</file>
     </route>
     <route nameRoute="Lviv-Dnepr">
         <typeTrain>IntercityTrain</typeTrain>
-        <file>Lviv-Dnepr.xml</file>
+        <file>resources\\passenger\\Lviv-Dnepr.xml</file>
     </route>
     <route nameRoute="Poltava-Kharkov">
         <typeTrain>IntercityTrain</typeTrain>
-        <file>Poltava-Kharkov.xml</file>
+        <file>resources\\passenger\\Poltava-Kharkov.xml</file>
     </route>
     <route nameRoute="Kharkov-Odessa">
         <typeTrain>CompositionPassengerTrain</typeTrain>
-        <file>Kharkov-Odessa.xml</file>
+        <file>resources\\passenger\\Kharkov-Odessa.xml</file>
     </route>
 </baseTrain>

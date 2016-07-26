@@ -1,6 +1,7 @@
 package ua.com.westwind.project.model.trainfactory;
 
 import org.w3c.dom.*;
+import ua.com.westwind.project.model.compositiontarins.CompositionFreightTrain;
 import ua.com.westwind.project.model.intercity.*;
 import ua.com.westwind.project.model.lokomotives.Locomotives;
 import ua.com.westwind.project.model.compositiontarins.CompositionPassengerTrain;
@@ -9,6 +10,7 @@ import ua.com.westwind.project.model.lokomotives.ElectricLocomotive;
 import ua.com.westwind.project.model.lokomotives.GasTurbinesLocomotive;
 import ua.com.westwind.project.model.lokomotives.HeatLocomotive;
 import ua.com.westwind.project.model.lokomotives.VaporLocomotive;
+import ua.com.westwind.project.model.wagons.freightwagons.*;
 import ua.com.westwind.project.model.wagons.passengerwagons.*;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 public class XMLFileParsing {
 
 
-    public static PassengerTrains readXMLfileIntercity(String route,String nameFile){
+    public static PassengerTrain readXMLfileIntercity(String route, String nameFile){
 
         NodeList nodeList = createNodeList(nameFile);
 
@@ -31,11 +33,11 @@ public class XMLFileParsing {
                     if(nodeMap.item(j).getNodeName().equals("name")){
                         String help = nodeMap.item(j).getNodeValue();
                         if(help.equals("Hyundai")){
-                            return new HyundaiIntercityTrains(route);
+                            return new HyundaiIntercityTrain(route);
                         }else if(help.equals("Skoda")){
-                            return new SkodaIntercityTrains(route);
+                            return new SkodaIntercityTrain(route);
                         }else if(help.equals("Tarpan")){
-                            return new TarpanIntercityTrains(route);
+                            return new TarpanIntercityTrain(route);
                         }else if(help.equals("LocomotiveTraction")){
                             return new TrainLocomotiveTraction(route);
                         }
@@ -48,7 +50,7 @@ public class XMLFileParsing {
 
     public static void parsingXMLIntercityTrainInfo(String nameTrain,
                                                     ArrayList<PassengerWagon> listInterCityWagon){
-        final String PATH = "IntercityTrainInfo.xml";
+        final String PATH = "resources\\passenger\\IntercityTrainInfo.xml";
 
         NodeList nodeList = createNodeList(PATH);
         for (int i = 0; i < nodeList.getLength(); i++){
@@ -90,47 +92,89 @@ public class XMLFileParsing {
         return new IntercityWagon(typeWagon,countPlaceFirstClass,countPlaceSecondClass);
     }
 
-    public static CompositionPassengerTrain readXMLfileComposition(String route,String nameFile){
+    public static CompositionPassengerTrain readXMLfileCompositionPassengerTrain(String route, String nameFile){
+
         ArrayList<Locomotives> listL = new ArrayList<>();
         ArrayList<PassengerWagon> listW = new ArrayList<>();
         ArrayList<Passenger> listP;
         NodeList nodeList = createNodeList(nameFile);
 
-        for (int i = 0; i < nodeList.getLength(); i++){
-            if(nodeList.item(i).getNodeName().equals("locomotive")){
+        readXMLfileLocomotive(listL,nodeList);
+        readXMLfilePassengerWagon(listW,nodeList);
+
+        RandomFillPassengersTrain randomFillPassengersTrain = new RandomFillPassengersTrain();
+        listP = randomFillPassengersTrain.fillPassengers(route,listW);
+
+        return new CompositionPassengerTrain(route,listL,listW,listP);
+    }
+
+    public static CompositionFreightTrain readXMLfileCompositionFreightTrain(String nameFile){
+
+        ArrayList<Locomotives> listL = new ArrayList<>();
+        ArrayList<FreightWagon> listW = new ArrayList<>();
+        NodeList nodeList = createNodeList(nameFile);
+
+        readXMLfileLocomotive(listL,nodeList);
+        readXMLfileFreightWagon(listW,nodeList);
+
+        return new CompositionFreightTrain(listL,listW);
+    }
+
+    private static void readXMLfileLocomotive(ArrayList<Locomotives> list, NodeList nodeList){
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            if (nodeList.item(i).getNodeName().equals("locomotive")) {
                 NamedNodeMap nodeMap = nodeList.item(i).getAttributes();
                 int count = 0;
-                for (int j = 0; j < nodeMap.getLength(); j ++){
-                    if(nodeMap.item(j).getNodeName().equals("count")){
+                for (int j = 0; j < nodeMap.getLength(); j++) {
+                    if (nodeMap.item(j).getNodeName().equals("count")) {
                         count = Integer.parseInt(nodeMap.item(j).getNodeValue());
                     }
-                    if(nodeMap.item(j).getNodeName().equals("type")){
+                    if (nodeMap.item(j).getNodeName().equals("type")) {
                         for (int k = 0; k < count; k++) {
-                            listL.add(createLocomotive(nodeMap.item(j).getNodeValue()));
-                        }
-                    }
-                }
-            }
-            if(nodeList.item(i).getNodeName().equals("wagon")){
-                NamedNodeMap nodeMap = nodeList.item(i).getAttributes();
-                int count = 0;
-                for (int j = 0; j < nodeMap.getLength(); j ++){
-                    if(nodeMap.item(j).getNodeName().equals("count")){
-                        count = Integer.parseInt(nodeMap.item(j).getNodeValue());
-                    }
-                    if(nodeMap.item(j).getNodeName().equals("type")){
-                        for (int k = 0; k < count; k++) {
-                            listW.add(createWagon(nodeMap.item(j).getNodeValue()));
+                            list.add(createLocomotive(nodeMap.item(j).getNodeValue()));
                         }
                     }
                 }
             }
         }
+    }
 
-        RandomFillPassengerTrain randomFillPassengerTrain = new RandomFillPassengerTrain();
-        listP = randomFillPassengerTrain.fillPassengers(route,listW);
+    private static void readXMLfilePassengerWagon(ArrayList<PassengerWagon> list, NodeList nodeList){
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            if (nodeList.item(i).getNodeName().equals("wagon")) {
+                NamedNodeMap nodeMap = nodeList.item(i).getAttributes();
+                int count = 0;
+                for (int j = 0; j < nodeMap.getLength(); j++) {
+                    if (nodeMap.item(j).getNodeName().equals("count")) {
+                        count = Integer.parseInt(nodeMap.item(j).getNodeValue());
+                    }
+                    if (nodeMap.item(j).getNodeName().equals("type")) {
+                        for (int k = 0; k < count; k++) {
+                            list.add(createPassengerWagon(nodeMap.item(j).getNodeValue()));
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-        return new CompositionPassengerTrain(route,listL,listW,listP);
+    private static void readXMLfileFreightWagon(ArrayList<FreightWagon> list, NodeList nodeList){
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            if (nodeList.item(i).getNodeName().equals("wagon")) {
+                NamedNodeMap nodeMap = nodeList.item(i).getAttributes();
+                int count = 0;
+                for (int j = 0; j < nodeMap.getLength(); j++) {
+                    if (nodeMap.item(j).getNodeName().equals("count")) {
+                        count = Integer.parseInt(nodeMap.item(j).getNodeValue());
+                    }
+                    if (nodeMap.item(j).getNodeName().equals("type")) {
+                        for (int k = 0; k < count; k++) {
+                            list.add(createFreightWagon(nodeMap.item(j).getNodeValue()));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public static String returnDataAboutTrain(String nameRoute,String path,String attribute){
@@ -183,7 +227,7 @@ public class XMLFileParsing {
         return null;
     }
 
-    private static PassengerWagon createWagon(String type){
+    private static PassengerWagon createPassengerWagon(String type){
 
         if(type.equals("CoupeSVWagon")){
             return new CoupeSVWagon();
@@ -195,8 +239,20 @@ public class XMLFileParsing {
             return new PassengerWagonWithSeating();
         }else if(type.equals("CoupeWagonWithSeating")){
             return new CoupeWagonWithSeating();
-        }
-        return null;
+        }else return null;
+    }
+
+    private static FreightWagon createFreightWagon(String type){
+
+        if(type.equals("CisternFreightWagon")){
+            return new CisternFreightWagon();
+        }else if(type.equals("CoverredFreightWagon")){
+            return new CoverredFreightWagon();
+        }else if(type.equals("IsothermalFreightWagon")){
+            return new IsothermalFreightWagon();
+        }else if(type.equals("PlatformFreightWagon")){
+            return new PlatformFreightWagon();
+        }else return null;
     }
 
     private static String getElementContent(Node node) {

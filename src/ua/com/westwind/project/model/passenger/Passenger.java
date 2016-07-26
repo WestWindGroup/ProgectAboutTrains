@@ -2,16 +2,20 @@ package ua.com.westwind.project.model.passenger;
 
 public class Passenger {
 
-    private final Ticket ticket;
-    private final Baggage baggage;
+    private final Ticket TICKET;
+    private Baggage baggage;
 
-    public Passenger(Ticket ticket, Baggage baggage) {
-        this.ticket = ticket;
+    public Passenger(Ticket TICKET) {
+        this.TICKET = TICKET;
+    }
+
+    public Passenger(Ticket TICKET, Baggage baggage) {
+        this.TICKET = TICKET;
         this.baggage = baggage;
     }
 
-    public Ticket getTicket() {
-        return ticket;
+    public Ticket getTICKET() {
+        return TICKET;
     }
 
     public Baggage getBaggage() {
@@ -21,7 +25,7 @@ public class Passenger {
     @Override
     public String toString() {
         String str = String.format("|  %9s  |", "Passenger");
-        return str + ticket +  baggage;
+        return str + TICKET +  baggage;
     }
 
     @Override
@@ -31,15 +35,15 @@ public class Passenger {
 
         Passenger passenger = (Passenger) o;
 
-        if (!ticket.equals(passenger.ticket)) return false;
+        if (!TICKET.equals(passenger.TICKET)) return false;
         return baggage.equals(passenger.baggage);
 
     }
 
     @Override
     public int hashCode() {
-        int result = ticket.hashCode();
-        result = 31 * result + baggage.hashCode();
+        int result = TICKET.hashCode();
+        result = 31 * result + (baggage != null ? baggage.hashCode() : 0);
         return result;
     }
 }

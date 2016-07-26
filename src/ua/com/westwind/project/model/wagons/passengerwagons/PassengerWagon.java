@@ -11,7 +11,7 @@ public abstract class PassengerWagon implements Wagons,Comparable<PassengerWagon
     protected int countBusyPlace;
     protected double allMassBaggege;
     protected TypeWagon typeWagon;
-    protected ArrayList<Place>listPlace;
+    protected ArrayList<Place> listPlace;
 
     public double getAllMassBaggege() {
         return allMassBaggege;
@@ -21,19 +21,29 @@ public abstract class PassengerWagon implements Wagons,Comparable<PassengerWagon
         this.allMassBaggege = allMassBaggege;
     }
 
-    public abstract int getCountBusyPlace();
+    public int getCountBusyPlace() {
+        return countBusyPlace;
+    }
 
-    public abstract void setCountBusyPlace(int countBusyPlace);
+    public void setCountBusyPlace(int countBusyPlace) {
+        this.countBusyPlace = countBusyPlace;
+    }
 
-    public abstract TypeWagon getPassengerTypeWagon();
+    public TypeWagon getPassengerTypeWagon() {
+        return typeWagon;
+    }
 
-    public abstract  int getCountPlace();
+    public int getCountPlace() {
+        return countPlace;
+    }
 
-    public abstract  ArrayList<Place> getListPlace();
+    public ArrayList<Place> getListPlace() {
+        return listPlace;
+    }
 
     @Override
     public String toString() {
-        return "\n PassengerWagon | " +
+        return "\n\n PassengerWagon | " +
                 "typeWagon = " + typeWagon +
                 " | countPlace = " + countPlace +
                 " | countBusyPlace = " + countBusyPlace;

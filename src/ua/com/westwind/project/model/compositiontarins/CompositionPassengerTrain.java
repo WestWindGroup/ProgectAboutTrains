@@ -2,13 +2,12 @@ package ua.com.westwind.project.model.compositiontarins;
 
 import ua.com.westwind.project.model.lokomotives.Locomotives;
 import ua.com.westwind.project.model.passenger.Passenger;
-import ua.com.westwind.project.model.trainfactory.PassengerTrains;
-import ua.com.westwind.project.model.wagons.Wagons;
+import ua.com.westwind.project.model.trainfactory.PassengerTrain;
 import ua.com.westwind.project.model.wagons.passengerwagons.PassengerWagon;
 
 import java.util.ArrayList;
 
-public class CompositionPassengerTrain extends CompositionTrain implements PassengerTrains {
+public class CompositionPassengerTrain implements PassengerTrain {
 
     private String route;
     private final String TYPE_TRAIN = "CompositionPassengerTrain";
@@ -35,7 +34,7 @@ public class CompositionPassengerTrain extends CompositionTrain implements Passe
     }
 
     @Override
-    public String returnTypeTrain() {
+    public String getTypeTrain() {
         return TYPE_TRAIN;
     }
 
@@ -49,12 +48,12 @@ public class CompositionPassengerTrain extends CompositionTrain implements Passe
         this.route = route;
     }
 
-    @Override
+
     public ArrayList<Locomotives> getListLocomotives() {
         return listLocomotives;
     }
 
-    @Override
+
     public void setListLocomotives(ArrayList<Locomotives> listLocomotives) {
         this.listLocomotives = listLocomotives;
     }
@@ -79,20 +78,11 @@ public class CompositionPassengerTrain extends CompositionTrain implements Passe
     }
 
     @Override
-    public void showHeadTrain() {
-        printLine();
-        System.out.println(TYPE_TRAIN + " ---- " + "route " + "\"" + route + "\"");
-        printLine();
-    }
-
-
-    @Override
     public void showTrain() {
         showHeadTrain();
         for (Locomotives locomotive: listLocomotives) {
             System.out.println(locomotive);
         }
-        printLine();
         showWagon();
     }
 

@@ -10,8 +10,6 @@ public class EconomPassengerWagon extends PassengerWagon {
     private final int COUNT_PLACE = 54;
     private final int COUNT_PLACE_UP = 18;
     private final int COUNT_PLACE_DOWN = 18;
-    private final int COUNT_PLACE_SIDE_UP = 9;
-    private final int COUNT_PLACE_SIDE_DOWN = 9;
 
     public EconomPassengerWagon() {
         typeWagon = TYPE_WAGON;
@@ -35,23 +33,4 @@ public class EconomPassengerWagon extends PassengerWagon {
         }
     }
 
-    public int getCountBusyPlace() {
-        return countBusyPlace;
-    }
-
-    public void setCountBusyPlace(int countBusyPlace) {
-        this.countBusyPlace = countBusyPlace;
-    }
-
-    public TypeWagon getPassengerTypeWagon() {
-        return typeWagon;
-    }
-
-    public int getCountPlace() {
-        return countPlace;
-    }
-
-    public ArrayList<Place> getListPlace() {
-        return listPlace;
-    }
 }

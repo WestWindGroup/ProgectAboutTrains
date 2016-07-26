@@ -23,23 +23,4 @@ public class PassengerWagonWithSeating extends PassengerWagon {
 
     }
 
-    public int getCountBusyPlace() {
-        return countBusyPlace;
-    }
-
-    public void setCountBusyPlace(int countBusyPlace) {
-        this.countBusyPlace = countBusyPlace;
-    }
-
-    public TypeWagon getPassengerTypeWagon() {
-        return typeWagon;
-    }
-
-    public int getCountPlace() {
-        return countPlace;
-    }
-
-    public ArrayList<Place> getListPlace() {
-        return listPlace;
-    }
 }

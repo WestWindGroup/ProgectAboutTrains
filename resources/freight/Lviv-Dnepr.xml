@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Lviv-Dnepr>
+<Lviv-Dnepr>
+    <locomotive count="2" type="ElectricLocomotive"></locomotive>
+    <wagon count="2" type="CisternFreightWagon"></wagon>
+    <wagon count="4" type="CoverredFreightWagon"></wagon>
+    <wagon count="2" type="IsothermalFreightWagon"></wagon>
+    <wagon count="7" type="PlatformFreightWagon"></wagon>
+</Lviv-Dnepr>

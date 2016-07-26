@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE baseTrain>
+<baseTrain>
+    <route nameRoute="Lviv-Dnepr">
+        <typeTrain>CompositionFreightTrain</typeTrain>
+        <file>resources\\freight\\Lviv-Dnepr.xml</file>
+    </route>
+</baseTrain>

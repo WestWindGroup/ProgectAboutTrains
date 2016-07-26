@@ -6,15 +6,11 @@ public interface Train{
 
     void setRoute(String route);
 
-    String returnTypeTrain();
+    String getTypeTrain();
 
     void showTrain();
 
     void showHeadTrain();
 
-    default void printLine(){
-        System.out.println(
-                "---------------------------------------------------------------------------------------------------");
-    }
 
 }

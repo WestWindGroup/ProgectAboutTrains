@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RandomFillPassengerTrain {
+public class RandomFillPassengersTrain {
 
     private double maxMassBaggage = 36;
 

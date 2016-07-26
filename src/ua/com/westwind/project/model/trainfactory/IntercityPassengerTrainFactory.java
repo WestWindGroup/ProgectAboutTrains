@@ -8,7 +8,7 @@ public class IntercityPassengerTrainFactory implements PassengerTrainFactory {
     }
 
     @Override
-    public PassengerTrains createTrain(String route) {
+    public PassengerTrain createTrain(String route) {
         return XMLFileParsing.readXMLfileIntercity(route,nameFile);
     }
 

@@ -7,15 +7,15 @@ import java.util.ArrayList;
 public class TrainDataProcessing {
     private String pathFile;
     private String typeTrain;
-    private final String BASE_ROUTES_PASSENGER_TRAINS = "BaseRoutesPassengerTrains.xml";
-    private final String BASE_ROUTES_FREIGHT_TRAINS = "BaseRoutesFreightTrains.xml";
+    private final String BASE_ROUTES_PASSENGER_TRAINS = "resources\\passenger\\BaseRoutesPassengerTrains.xml";
+    private final String BASE_ROUTES_FREIGHT_TRAINS = "resources\\passenger\\BaseRoutesFreightTrains.xml";
 
-    public PassengerTrains routePassengerTrainInObjectTrain(String route){
+    public PassengerTrain routePassengerTrainInObjectTrain(String route){
         returnDataAboutTrain(route,BASE_ROUTES_PASSENGER_TRAINS);
         return returnPassengerTrain().createTrain(route);
     }
 
-    public FreightTrains routeFreightTrainInObjectTrain(String route){
+    public FreightTrain routeFreightTrainInObjectTrain(String route){
         returnDataAboutTrain(route,BASE_ROUTES_FREIGHT_TRAINS);
         return returnFreightTrain().createTrain(route);
     }
@@ -43,7 +43,7 @@ public class TrainDataProcessing {
 
     }
 
-    public int countBusyPlacesInTrain(PassengerTrains train){
+    public int countBusyPlacesInTrain(PassengerTrain train){
         int countPasseger = 0;
         for (PassengerWagon passengerW:train.getListWagons()) {
             countPasseger += passengerW.getCountBusyPlace();
@@ -51,7 +51,7 @@ public class TrainDataProcessing {
         return countPasseger;
     }
 
-    public double countAllMassBaggegeInTrain(PassengerTrains train){
+    public double countAllMassBaggegeInTrain(PassengerTrain train){
         double allMassBaggege = 0;
         for (PassengerWagon passengerW:train.getListWagons()) {
             allMassBaggege += passengerW.getAllMassBaggege();
@@ -59,7 +59,7 @@ public class TrainDataProcessing {
         return allMassBaggege;
     }
 
-    public ArrayList<PassengerWagon> searchWagonByCountPassengers(PassengerTrains train,
+    public ArrayList<PassengerWagon> searchWagonByCountPassengers(PassengerTrain train,
                                                                   int minCountPassengers,
                                                                   int maxCountPassengers){
         ArrayList<PassengerWagon> listW = new ArrayList<>();

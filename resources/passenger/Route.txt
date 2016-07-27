@@ -4,6 +4,5 @@ Lviv-Kiev
 Lviv-Dnepr
 Poltava-Kharkov
 Kharkov-Odessa
-Выход из программы.
-additionally
 Список созданых поездов.
+Выход из программы.

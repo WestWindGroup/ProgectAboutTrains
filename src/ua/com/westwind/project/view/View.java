@@ -1,9 +1,7 @@
 package ua.com.westwind.project.view;
 
-import ua.com.westwind.project.controller.InterfaceScreen;
 import ua.com.westwind.project.model.trainfactory.Train;
 import ua.com.westwind.project.model.wagons.Wagons;
-import ua.com.westwind.project.model.wagons.passengerwagons.PassengerWagon;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -13,12 +11,6 @@ public abstract class View {
 
     public void showTrainInConsole(Train train) {
         train.showTrain();
-    }
-
-    public void showHeadTrainInConsole(Train train) {
-        printLine();
-        train.showHeadTrain();
-        printLine();
     }
 
     public void showString(String str) {
@@ -53,6 +45,7 @@ public abstract class View {
         showMapList(mapList);
         printLine();
     }
+
 
 
 }

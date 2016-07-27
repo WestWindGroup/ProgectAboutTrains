@@ -1,7 +1,6 @@
 package ua.com.westwind.project.controller;
 
 import ua.com.westwind.project.model.trainfactory.PassengerTrain;
-import ua.com.westwind.project.view.View;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,59 +14,145 @@ public class InterfaceScreen {
 
     private int countItemInList;
     private String headScreen;
-    private Map<Integer,String> mapListScreenView = new HashMap<>();
-    private Map<Integer,String> mapListScreenViewAdditionally = new HashMap<>();
+    private Map<Integer, String> mapListScreenView = new HashMap<>();
     private TypeInterfaceScreen typeScreen;
     private InterfaceScreen back;
     private InterfaceScreen next;
     private Controller controller;
+    private boolean endWork;
+    String errInput = "Извените, произошла ошибка обработки введённых данных";
 
-
-    public InterfaceScreen(InterfaceScreen back,InterfaceScreen next,String path,TypeInterfaceScreen typeScreen,Controller controller) {
+    public InterfaceScreen(String path, TypeInterfaceScreen typeScreen, Controller controller) {
         this.typeScreen = typeScreen;
         readFromFileList(path);
-        this.back = back;
-        this.next = next;
         this.controller = controller;
     }
 
-    public boolean performSelectedAction(int input){
-        if(typeScreen == TypeInterfaceScreen.LIST_TRAIN){
+    public InterfaceScreen performSelectedAction(int input) {
+        if (typeScreen == TypeInterfaceScreen.LIST_TRAIN) {
             return performSelectedActionLTrain(input);
-        }else if(typeScreen == TypeInterfaceScreen.LIST_CREATE_TRAIN){
+        } else if (typeScreen == TypeInterfaceScreen.LIST_CREATE_TRAIN) {
             return performSelectedActionLCTrain(input);
-        }else if(typeScreen == TypeInterfaceScreen.LIST_ACTION){
+        } else if (typeScreen == TypeInterfaceScreen.LIST_ACTION) {
             return performSelectedActionLAction(input);
-        }else return false;
+        } else return this;
     }
 
-    private boolean performSelectedActionLTrain(int input){
-        if(input == mapListScreenView.size()){
-            return true;
-        }else{
+
+    private InterfaceScreen performSelectedActionLTrain(int input) {
+        if (input == mapListScreenView.size()) {
+            endWork = true;
+            return this;
+        } else if ((input > 0) && (input <= mapListScreenView.size() - 2)) {
             PassengerTrain train = null;
             try {
                 String route = mapListScreenView.get(input);
                 train = controller.createPassengerTrainFromBase(route);
-                String help = next.getMapListScreenView().put(next.countItemInList,route);
-                next.getMapListScreenView().put(next.countItemInList++,help);
-                controller.getMapCreatePassengerTrains().put(route,train);
+                String help = next.getMapListScreenView().put(next.countItemInList, route);
+                next.getMapListScreenView().put(++next.countItemInList, help);
+                controller.getMapCreatePassengerTrains().put(route, train);
+                System.out.println("\nПоезд создан");
+                train.showHeadTrain();
             } catch (Exception e) {
-                controller.showString("Извените, произошла ошибка обработки введённых данных");
+                e.printStackTrace();
+                controller.showString(errInput);
             }
-            return false;
+            return this;
+        } else if (input <= mapListScreenView.size() - 1) {
+            return next;
+        } else return this;
+
+    }
+
+    private InterfaceScreen performSelectedActionLCTrain(int input) {
+        if (input == mapListScreenView.size()) {
+            return back;
+        } else if ((input > 0) && (input <= mapListScreenView.size())) {
+            try {
+                String route = mapListScreenView.get(input);
+                controller.setTrain(controller.getMapCreatePassengerTrains().get(route));
+            } catch (Exception e) {
+                e.printStackTrace();
+                controller.showString(errInput);
+            }
+            return next;
+        } else return this;
+
+    }
+
+    private InterfaceScreen performSelectedActionLAction(int input) {
+        String messageInputValue = "Введите минимальное и максимальное колличество пассажиров в вагоне (от 0 до 135)";
+        if (input == mapListScreenView.size()) {
+            return back;
+        } else if ((input > 0) && (input <= mapListScreenView.size())) {
+            try {
+                switch (input) {
+                    case 1:
+                        controller.getInPassengerTrainCountPassenger(controller.getTrain());
+                        controller.getInPassengerTrainAllMassBaggege(controller.getTrain());
+                        break;
+
+                    case 2:
+                        controller.sortPassengerTrainOfComfort(controller.getTrain());
+                        break;
+
+                    case 3:
+                        controller.printLine();
+                        controller.showString(messageInputValue);
+                        controller.printLine();
+
+                        int one = inputMinAndMax(controller.getScanner());
+                        int two = inputMinAndMax(controller.getScanner());
+                        if (one <= two) {
+                            controller.searchWagonByCountPassengers(controller.getTrain(), one, two);
+                        } else {
+                            controller.searchWagonByCountPassengers(controller.getTrain(), two, one);
+                        }
+
+                        break;
+
+                    case 4:
+                        controller.showPassengerTrain(controller.getTrain());
+                        break;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                controller.showString(errInput);
+            }
+            return this;
+        } else return this;
+    }
+
+    private int inputMinAndMax(Scanner sc) {
+        int countHelp = 0;
+        int minCountPassengerInWagon = 0;
+        int maxCountPassengerInWagon = 135;
+        boolean endWork = false;
+        int number = 0;
+        int help = 0;
+        while (!endWork) {
+            if (sc.hasNextInt() &&
+                    ((help = sc.nextInt()) >= minCountPassengerInWagon) &&
+                    (help <= maxCountPassengerInWagon)) {
+                number = help;
+                endWork = true;
+            } else {
+                countHelp++;
+                sc.nextLine();
+                if (countHelp == 1) {
+                    controller.showString(errInput);
+                } else {
+                    countHelp = 0;
+                }
+            }
         }
-    }
-    private boolean performSelectedActionLCTrain(int input){
-        return false;
-    }
-    private boolean performSelectedActionLAction(int input){
-        return false;
+        return number;
     }
 
 
-    public void showInterfaceScreen(){
-        controller.showInterfaceScreen(headScreen,mapListScreenView);
+    public void showInterfaceScreen() {
+        controller.showInterfaceScreen(headScreen, mapListScreenView);
     }
 
 
@@ -77,45 +162,34 @@ public class InterfaceScreen {
         try (BufferedReader rd = new BufferedReader(new FileReader(file))) {
             String strHelp;
             while ((strHelp = rd.readLine()) != null) {
-                if(countItemInList == 0){
+                if (countItemInList == 0) {
                     headScreen = strHelp;
-                }else if(strHelp.equals("additionally")){
-                    while ((strHelp = rd.readLine()) != null){
-                        mapListScreenViewAdditionally.put(countItemInList,strHelp);
-                    }
-                }else{
-                    mapListScreenView.put(countItemInList,strHelp);
+                    countItemInList++;
+                } else {
+                    mapListScreenView.put(countItemInList, strHelp);
+                    countItemInList++;
                 }
-                countItemInList++;
             }
+            countItemInList--;
         } catch (IOException e) {
             System.out.println("Ошибка чтения файла " + path);
         }
     }
 
-    public String getHeadScreen() {
-        return headScreen;
-    }
-
-    public void setHeadScreen(String headScreen) {
-        this.headScreen = headScreen;
+    public boolean isEndWork() {
+        return endWork;
     }
 
     public Map<Integer, String> getMapListScreenView() {
         return mapListScreenView;
     }
 
-    public void setMapListScreenView(Map<Integer, String> mapListScreenView) {
-        this.mapListScreenView = mapListScreenView;
-    }
-
-    public Map<Integer, String> getMapListScreenViewAdditionally() {
-        return mapListScreenViewAdditionally;
-    }
-
-    public void setMapListScreenViewAdditionally(Map<Integer, String> mapListScreenViewAdditionally) {
-        this.mapListScreenViewAdditionally = mapListScreenViewAdditionally;
+    public void setBack(InterfaceScreen back) {
+        this.back = back;
     }
 
 
+    public void setNext(InterfaceScreen next) {
+        this.next = next;
+    }
 }

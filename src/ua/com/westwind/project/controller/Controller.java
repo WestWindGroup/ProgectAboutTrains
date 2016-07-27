@@ -10,13 +10,23 @@ import java.util.*;
 public class Controller extends View {
 
     private int numCreateTrainInList;
-
-
     private Map<Integer, String> mapListTrains = new HashMap<>();
     private Map<Integer, String> mapListCreateTrains = new HashMap<>();
     private Map<Integer, String> mapListActionsOnTrain = new HashMap<>();
     private Map<String, PassengerTrain> mapCreatePassengerTrains = new HashMap<>();
     private TrainDataProcessing trainDataProcessing = new TrainDataProcessing();
+    private PassengerTrain train;
+    private Scanner scanner = new Scanner(System.in);
+
+    public void startProgramm(){
+        try{
+            UserScreen user = new UserScreen();
+            user.userInterface(scanner);
+        }finally {
+            scanner.close();
+        }
+
+    }
 
     public Map<String, PassengerTrain> getMapCreatePassengerTrains() {
         return mapCreatePassengerTrains;
@@ -32,30 +42,30 @@ public class Controller extends View {
         return train;
     }
 
-    private void showPassengerTrain(PassengerTrain train) {
+    public void showPassengerTrain(PassengerTrain train) {
         showTrainInConsole(train);
     }
 
-    private void getInPassengerTrainCountPassenger(PassengerTrain train) throws Exception {
+    public void getInPassengerTrainCountPassenger(PassengerTrain train) throws Exception {
         int countPassenger = trainDataProcessing.countBusyPlacesInTrain(train);
         String str = "В поезде " + train.getRoute() + " " + countPassenger + " пассажиров";
         showString(str);
     }
 
-    private void getInPassengerTrainAllMassBaggege(PassengerTrain train) throws Exception {
+    public void getInPassengerTrainAllMassBaggege(PassengerTrain train) throws Exception {
         double allMassBaggege = trainDataProcessing.countAllMassBaggegeInTrain(train);
         String format = String.format(" %.2f", allMassBaggege);
         String str = "В поезде " + train.getRoute() + " общее колличество баггажа" + format + " kg";
         showString(str);
     }
 
-    private void sortPassengerTrainOfComfort(PassengerTrain train) throws Exception {
+    public void sortPassengerTrainOfComfort(PassengerTrain train) throws Exception {
         ArrayList<PassengerWagon> listPW = (ArrayList<PassengerWagon>) train.getListWagons().clone();
         Collections.sort(listPW);
         showPassengerWagonList(listPW);
     }
 
-    private void searchWagonByCountPassengers(PassengerTrain train,
+    public void searchWagonByCountPassengers(PassengerTrain train,
                                               int minCountPassengers,
                                               int maxCountPassengers) throws Exception {
         ArrayList<PassengerWagon> listPW =
@@ -70,7 +80,17 @@ public class Controller extends View {
 
     }
 
-    public Map<Integer, String> getMapListCreateTrains() {
-        return mapListCreateTrains;
+    public PassengerTrain getTrain() {
+        return train;
     }
+
+    public void setTrain(PassengerTrain train) {
+        this.train = train;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+
 }

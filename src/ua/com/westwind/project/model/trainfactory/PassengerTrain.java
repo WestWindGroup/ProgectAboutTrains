@@ -12,7 +12,7 @@ public interface PassengerTrain extends Train  {
     ArrayList<PassengerWagon> getListWagons();
 
     default void showHeadTrain() {
-        System.out.println("\n" + getTypeTrain() + " ---- " + "route \"" + getRoute() + "\"\n");
+        System.out.println(getTypeTrain() + " ---- " + "route \"" + getRoute() + "\"\n");
     }
 
     default void showWagon(){

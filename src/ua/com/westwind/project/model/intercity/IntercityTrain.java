@@ -21,7 +21,7 @@ public abstract class IntercityTrain implements RollingStock, PassengerTrain {
     protected ArrayList<PassengerWagon> listWagons = new ArrayList<>();
     protected ArrayList<Passenger> listPassengers = new ArrayList<>();
 
-    protected IntercityTrain(String nameTrain){
+    protected IntercityTrain(String nameTrain) throws Exception {
         this.nameTrain = nameTrain;
         typeTrain = typeTrain + " " + nameTrain;
         parsingXML();
@@ -29,14 +29,14 @@ public abstract class IntercityTrain implements RollingStock, PassengerTrain {
         countWagonClass();
     }
 
-    protected IntercityTrain(String nameTrain,String route){
+    protected IntercityTrain(String nameTrain,String route) throws Exception {
         this(nameTrain);
         this.route = route;
         randomFill();
     }
 
-    private void parsingXML() {
-        XMLFileParsing.parsingXMLIntercityTrainInfo(nameTrain, listWagons);
+    private void parsingXML() throws Exception {
+        listWagons = XMLFileParsing.parsingXMLIntercityTrainInfo(nameTrain);
     }
 
     private void randomFill(){

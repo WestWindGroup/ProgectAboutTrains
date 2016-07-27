@@ -2,5 +2,5 @@ package ua.com.westwind.project.model.trainfactory;
 
 public interface PassengerTrainFactory {
 
-    PassengerTrain createTrain(String route);
+    PassengerTrain createTrain(String route) throws Exception;
 }

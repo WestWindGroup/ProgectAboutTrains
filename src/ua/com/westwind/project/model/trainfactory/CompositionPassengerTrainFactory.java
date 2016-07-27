@@ -9,7 +9,7 @@ public class CompositionPassengerTrainFactory implements PassengerTrainFactory {
     }
 
     @Override
-    public PassengerTrain createTrain(String route) {
+    public PassengerTrain createTrain(String route) throws Exception {
         return XMLFileParsing.readXMLfileCompositionPassengerTrain(route,nameFile);
     }
 }

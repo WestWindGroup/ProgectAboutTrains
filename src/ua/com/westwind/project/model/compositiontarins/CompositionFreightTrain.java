@@ -16,8 +16,9 @@ public class CompositionFreightTrain implements FreightTrain {
     public CompositionFreightTrain() {
     }
 
-    public CompositionFreightTrain(ArrayList<Locomotives> listLocomotives,
+    public CompositionFreightTrain(String route,ArrayList<Locomotives> listLocomotives,
                                      ArrayList<FreightWagon> freightWagons) {
+        this.route = route;
         this.listWagons = freightWagons;
         this.listLocomotives = listLocomotives;
     }

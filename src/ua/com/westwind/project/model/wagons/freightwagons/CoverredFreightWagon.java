@@ -8,8 +8,4 @@ public class CoverredFreightWagon extends FreightWagon {
         typeFreightWagon = TYPE_WAGON;
     }
 
-    @Override
-    public TypeFreightWagon getTypeFreightWagon() {
-        return typeFreightWagon;
-    }
 }

@@ -8,15 +8,17 @@ import static org.junit.Assert.*;
 public class CompositionFreightTrainFactoryTest {
     @Test
     public void createTrain1() throws Exception {
+        String route = "test";
         String nameFile = "resources\\freight\\Lviv-Dnepr.xml";
-        FreightTrain train = XMLFileParsing.readXMLfileCompositionFreightTrain(nameFile);
+        FreightTrain train = XMLFileParsing.readXMLfileCompositionFreightTrain(route,nameFile);
         Assert.assertNotNull(train);
     }
 
     @Test(expected = NullPointerException.class)
     public void createTrain2() throws Exception {
+        String route = "test";
         String nameFile = "resources\\freight\\Odessa-Kharkov.xml";
-        FreightTrain train = XMLFileParsing.readXMLfileCompositionFreightTrain(nameFile);
+        FreightTrain train = XMLFileParsing.readXMLfileCompositionFreightTrain(route,nameFile);
         Assert.assertNotNull(train);
     }
 

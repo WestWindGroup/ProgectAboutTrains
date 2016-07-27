@@ -9,8 +9,8 @@ public class CompositionFreightTrainFactory implements FreightTrainFactory {
     }
 
     @Override
-    public FreightTrain createTrain(String route) {
-        return XMLFileParsing.readXMLfileCompositionFreightTrain(nameFile);
+    public FreightTrain createTrain(String route) throws Exception {
+        return XMLFileParsing.readXMLfileCompositionFreightTrain(route,nameFile);
     }
 
 

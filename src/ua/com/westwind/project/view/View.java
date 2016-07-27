@@ -45,5 +45,13 @@ public abstract class View {
         }
     }
 
+    protected void printList(String head,Map<Integer,String> mapList){
+        printLine();
+        showString(head);
+        printLine();
+        showMapList(mapList);
+        printLine();
+    }
+
 
 }

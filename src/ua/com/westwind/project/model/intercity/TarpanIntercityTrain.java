@@ -5,11 +5,11 @@ public class TarpanIntercityTrain extends IntercityTrain {
     private static final String NAME = "Tarpan";
 
 
-    public TarpanIntercityTrain() {
+    public TarpanIntercityTrain() throws Exception {
         super(NAME);
     }
 
-    public TarpanIntercityTrain(String route) {
+    public TarpanIntercityTrain(String route) throws Exception {
         super(NAME,route);
     }
 }

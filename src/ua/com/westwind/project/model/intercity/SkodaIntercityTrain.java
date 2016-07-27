@@ -5,11 +5,11 @@ public class SkodaIntercityTrain extends IntercityTrain {
     private static final String NAME = "Skoda";
 
 
-    public SkodaIntercityTrain() {
+    public SkodaIntercityTrain() throws Exception {
         super(NAME);
     }
 
-    public SkodaIntercityTrain(String route) {
+    public SkodaIntercityTrain(String route) throws Exception {
         super(NAME,route);
     }
 }

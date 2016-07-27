@@ -17,19 +17,21 @@ public class RandomFillPassengersTrain {
         Random random = new Random();
         ArrayList<Passenger> listPassenger = new ArrayList<>();
 
-        for (int i = 0; i < listWagon.size(); i++) {
-            for (int j = 0; j < listWagon.get(i).getListPlace().size(); j++) {
-                if(random.nextBoolean()){
-                    double massBaggege = Math.random() * maxMassBaggage;
-                    if(massBaggege < 1){
-                        massBaggege += 5;
+        if(route != null && listWagon != null && route != "") {
+            for (int i = 0; i < listWagon.size(); i++) {
+                for (int j = 0; j < listWagon.get(i).getListPlace().size(); j++) {
+                    if (random.nextBoolean()) {
+                        double massBaggege = Math.random() * maxMassBaggage;
+                        if (massBaggege < 1) {
+                            massBaggege += 5;
+                        }
+                        Ticket ticket = new Ticket(route, i + 1, j + 1);
+                        Passenger passenger = new Passenger(ticket, new Baggage(massBaggege, ticket));
+                        listWagon.get(i).getListPlace().get(j).setBusy(true);
+                        listWagon.get(i).setCountBusyPlace(listWagon.get(i).getCountBusyPlace() + 1);
+                        listWagon.get(i).setAllMassBaggege(listWagon.get(i).getAllMassBaggege() + massBaggege);
+                        listPassenger.add(passenger);
                     }
-                    Ticket ticket = new Ticket(route,i + 1,j + 1);
-                    Passenger passenger = new Passenger(ticket,new Baggage(massBaggege,ticket));
-                    listWagon.get(i).getListPlace().get(j).setBusy(true);
-                    listWagon.get(i).setCountBusyPlace(listWagon.get(i).getCountBusyPlace() + 1);
-                    listWagon.get(i).setAllMassBaggege(listWagon.get(i).getAllMassBaggege() + massBaggege);
-                    listPassenger.add(passenger);
                 }
             }
         }

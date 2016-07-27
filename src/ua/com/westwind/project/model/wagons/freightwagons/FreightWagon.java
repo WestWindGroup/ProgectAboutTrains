@@ -6,5 +6,7 @@ public abstract class FreightWagon implements Wagons {
 
     protected TypeFreightWagon typeFreightWagon;
 
-    abstract TypeFreightWagon getTypeFreightWagon();
+    public TypeFreightWagon getTypeFreightWagon() {
+        return typeFreightWagon;
+    }
 }

@@ -17,15 +17,16 @@ import static org.junit.Assert.*;
 public class CompositionFreightTrainTest {
 
     CompositionFreightTrain com;
+    String testS = "test";
 
     @Before
     public void setUp() throws Exception{
+        testS = "test";
         com = new CompositionFreightTrain();
     }
 
     @Test
     public void getRoute() throws Exception {
-        String testS = "test";
         com.setRoute(testS);
         Assert.assertTrue(com.getRoute().equals(testS));
     }
@@ -99,7 +100,7 @@ public class CompositionFreightTrainTest {
         ArrayList<FreightWagon> listW = new ArrayList<>();
         listW.add(new CisternFreightWagon());
         listW.add(new PlatformFreightWagon());
-        CompositionFreightTrain helpF = new CompositionFreightTrain(listL,listW);
+        CompositionFreightTrain helpF = new CompositionFreightTrain(testS,listL,listW);
 
         Assert.assertFalse(com.equals(helpF));
 
@@ -114,11 +115,11 @@ public class CompositionFreightTrainTest {
         ArrayList<FreightWagon> listW = new ArrayList<>();
         listW.add(new CisternFreightWagon());
         listW.add(new PlatformFreightWagon());
-        CompositionFreightTrain helpF = new CompositionFreightTrain(listL,listW);
+        CompositionFreightTrain helpF = new CompositionFreightTrain(testS,listL,listW);
 
         Assert.assertFalse(com.hashCode() == helpF.hashCode());
 
-        com = new CompositionFreightTrain(listL,listW);
+        com = new CompositionFreightTrain(testS,listL,listW);
 
         Assert.assertTrue(com.hashCode() == helpF.hashCode());
     }

@@ -5,25 +5,29 @@ import ua.com.westwind.project.model.trainfactory.TrainDataProcessing;
 import ua.com.westwind.project.model.wagons.passengerwagons.PassengerWagon;
 import ua.com.westwind.project.view.View;
 
-import java.io.*;
 import java.util.*;
 
 public class Controller extends View {
 
     private int numCreateTrainInList;
-    private Map<Integer,String> mapListTrains = new HashMap<>();
-    private Map<Integer,String> mapListCreateTrains = new HashMap<>();
-    private Map<Integer,String> mapListActionsOnTrain = new HashMap<>();
+
+
+    private Map<Integer, String> mapListTrains = new HashMap<>();
+    private Map<Integer, String> mapListCreateTrains = new HashMap<>();
+    private Map<Integer, String> mapListActionsOnTrain = new HashMap<>();
     private Map<String, PassengerTrain> mapCreatePassengerTrains = new HashMap<>();
     private TrainDataProcessing trainDataProcessing = new TrainDataProcessing();
 
+    public Map<String, PassengerTrain> getMapCreatePassengerTrains() {
+        return mapCreatePassengerTrains;
+    }
 
-    private PassengerTrain createPassengerTrainFromBase(String route) throws Exception {
+    public PassengerTrain createPassengerTrainFromBase(String route) throws Exception {
 
         PassengerTrain train = trainDataProcessing.routePassengerTrainInObjectTrain(route);
         if (mapCreatePassengerTrains.put(route, train) == null) {
             numCreateTrainInList++;
-            mapListCreateTrains.put(numCreateTrainInList,route);
+            mapListCreateTrains.put(numCreateTrainInList, route);
         }
         return train;
     }
@@ -32,28 +36,28 @@ public class Controller extends View {
         showTrainInConsole(train);
     }
 
-    private  void getInPassengerTrainCountPassenger(PassengerTrain train) throws Exception {
+    private void getInPassengerTrainCountPassenger(PassengerTrain train) throws Exception {
         int countPassenger = trainDataProcessing.countBusyPlacesInTrain(train);
         String str = "В поезде " + train.getRoute() + " " + countPassenger + " пассажиров";
         showString(str);
     }
 
-    private  void getInPassengerTrainAllMassBaggege(PassengerTrain train) throws Exception {
+    private void getInPassengerTrainAllMassBaggege(PassengerTrain train) throws Exception {
         double allMassBaggege = trainDataProcessing.countAllMassBaggegeInTrain(train);
         String format = String.format(" %.2f", allMassBaggege);
         String str = "В поезде " + train.getRoute() + " общее колличество баггажа" + format + " kg";
         showString(str);
     }
 
-    private void sortPassengerTrainOfComfort(PassengerTrain train) throws Exception{
+    private void sortPassengerTrainOfComfort(PassengerTrain train) throws Exception {
         ArrayList<PassengerWagon> listPW = (ArrayList<PassengerWagon>) train.getListWagons().clone();
         Collections.sort(listPW);
         showPassengerWagonList(listPW);
     }
 
     private void searchWagonByCountPassengers(PassengerTrain train,
-                                             int minCountPassengers,
-                                             int maxCountPassengers) throws Exception {
+                                              int minCountPassengers,
+                                              int maxCountPassengers) throws Exception {
         ArrayList<PassengerWagon> listPW =
                 trainDataProcessing.searchWagonByCountPassengers(train, minCountPassengers, maxCountPassengers);
         if (listPW != null) {
@@ -66,225 +70,7 @@ public class Controller extends View {
 
     }
 
-    public void proogrammON(){
-        UserInterface user = new UserInterface();
-        user.userInterface();
-    }
-
-
-
-    private class UserInterface {
-
-        private int numInListTrain;
-        private int numInListActions;
-
-        private String pathToFileRoutesPassengerTrains = "resources\\passenger\\Route.txt";
-        private String pathToFileListActionsOnTrain = "resources\\passenger\\Actions.txt";
-        private String itemReturnMenuUp = "Назад";
-        private String itemEndProgram = "Выход из программы";
-        private String itemListCreateTrains = "Список созданых поездов";
-        private String messageErrorChoice = "\nТакого пункта нет в списке.\nВыбирите пожалуйста номер пункта из списка\n";
-        private String messageInputValue = "Введите минимальное и максимальное колличество пассажиров в вагоне\n" +
-                "Вводимое число должно быть больше нуля и меньше 135" ;
-        private String messageErrorInputData = "Вводимое число должно быть больше нуля и меньше 135";
-        private String createTrain = "\nСОЗДАТЬ ПОЕЗД (например Lviv-Kremenchuk нажмите 1 , Lviv-Dnepr нажмите 3 и т.д)";
-        private String listCreatesTrain = "СПИСОК СОЗДАНЫХ ПОЕЗДОВ";
-        String possibleOperations = "ВОЗМОЖНЫЕ ОПЕРАЦИИ";
-
-        public void userInterface() {
-            numInListTrain =
-                    readFromFileList(pathToFileRoutesPassengerTrains,
-                                    mapListTrains,
-                                    numInListTrain,
-                                    itemEndProgram);
-            numInListActions =
-                    readFromFileList(pathToFileListActionsOnTrain,
-                                    mapListActionsOnTrain,
-                                    numInListActions,
-                                    itemReturnMenuUp);
-            try (Scanner sc = new Scanner(System.in)) {
-                createTrains(sc);
-            }
-        }
-
-        private void createTrains(Scanner sc){
-            int countHelp = 0;
-            boolean endWork = false;
-            while (!endWork) {
-                if(countHelp == 0){
-                    printList(createTrain,mapListTrains);
-                }
-                if (sc.hasNextInt()) {
-                    int numberTrainInList = sc.nextInt();
-                    if ((numberTrainInList > 0) && (numberTrainInList <= numInListTrain)) {
-                        PassengerTrain train = null;
-                        try {
-                            train = createPassengerTrainFromBase(mapListTrains.get(numberTrainInList));
-                        } catch (Exception e) {
-                            showString("Извените, произошла ошибка обработки введённых данных");
-                        }
-                        mapListTrains.put(numInListTrain + 2,itemListCreateTrains);
-                        if (train != null) {
-                            showString("Поезд создан");
-                            showHeadTrainInConsole(train);
-                        }
-                    } else if (numberTrainInList == numInListTrain + 1) {
-                        endWork = true;
-                    } else if ((mapListCreateTrains.size() != 0) && (numberTrainInList == numInListTrain + 2)) {
-                        mapListCreateTrains.put(numCreateTrainInList + 1, itemReturnMenuUp);
-                        workWithListCreateTrains(sc);
-                    } else {
-                        showString(messageErrorChoice);
-                    }
-                } else {
-                    countHelp++;
-                    sc.nextLine();
-                    if(countHelp == 1) {
-                        showString(messageErrorChoice);
-                    }
-                    else{
-                        countHelp = 0;
-                    }
-                }
-            }
-        }
-
-        private void workWithListCreateTrains(Scanner sc) {
-            int countHelp = 0;
-            boolean endWork = false;
-            while (!endWork) {
-                if(countHelp == 0) {
-                    printList(listCreatesTrain,mapListCreateTrains);
-                }
-                if (sc.hasNextInt()) {
-                    int numberTrainInList = sc.nextInt();
-                    if ((numberTrainInList > 0) && (numberTrainInList <= numCreateTrainInList)) {
-                        String help = mapListCreateTrains.get(numberTrainInList);
-                        PassengerTrain train = mapCreatePassengerTrains.get(help);
-
-                        try {
-                            workWithTrain(sc,train);
-                        } catch (Exception e) {
-                            System.out.println("Ошибка обработки данных");
-                        }
-                    } else if (numberTrainInList == numCreateTrainInList + 1) {
-                        mapListCreateTrains.remove(numCreateTrainInList + 1);
-                        endWork = true;
-                    } else {
-                        showString(messageErrorChoice);
-                    }
-                }else {
-                    countHelp++;
-                    sc.nextLine();
-                    if(countHelp == 1) {
-                        showString(messageErrorChoice);
-                    }
-                    else{
-                        countHelp = 0;
-                    }
-                }
-
-            }
-
-        }
-
-        private void workWithTrain(Scanner sc,PassengerTrain train) throws Exception{
-            int countHelp = 0;
-            boolean endWork = false;
-            while (!endWork) {
-                if(countHelp == 0) {
-                    showHeadTrainInConsole(train);
-                    printList(possibleOperations,mapListActionsOnTrain);
-                }
-                if (sc.hasNextInt()) {
-                    int numberTrainInList = sc.nextInt();
-                    if ((numberTrainInList > 0) && (numberTrainInList <= numInListActions)) {
-                        switch (numberTrainInList){
-                            case 1:
-                                getInPassengerTrainCountPassenger(train);
-                                getInPassengerTrainAllMassBaggege(train);
-                                break;
-
-                            case 2:
-                                sortPassengerTrainOfComfort(train);
-                                break;
-
-                            case 3:
-                                printLine();
-                                showString(messageInputValue);
-                                printLine();
-                                int one = inputMinAndMax(sc);
-                                int two = inputMinAndMax(sc);
-                                if(one <= two){
-                                    searchWagonByCountPassengers(train,one,two);
-                                }else{
-                                    searchWagonByCountPassengers(train,two,one);
-                                }
-                                break;
-
-                            case 4:
-                                showPassengerTrain(train);
-                                break;
-                        }
-                    } else if (numberTrainInList == numInListActions + 1) {
-                        endWork = true;
-                    } else {
-                        showString(messageErrorChoice);
-                    }
-                }else {
-                    countHelp++;
-                    sc.nextLine();
-                    if(countHelp == 1) {
-                        showString(messageErrorChoice);
-                    }
-                    else{
-                        countHelp = 0;
-                    }
-                }
-            }
-        }
-
-        private int inputMinAndMax(Scanner sc) {
-            int countHelp = 0;
-            int minCountPassengerInWagon = 0;
-            int maxCountPassengerInWagon = 135;
-            boolean endWork = false;
-            int number = 0;
-            int help = 0;
-            while (!endWork) {
-                if (sc.hasNextInt() &&
-                        ((help = sc.nextInt()) >= minCountPassengerInWagon) &&
-                        (help <= maxCountPassengerInWagon)) {
-                    number = help;
-                    endWork = true;
-                }else {
-                    countHelp++;
-                    sc.nextLine();
-                    if(countHelp == 1) {
-                        showString(messageErrorInputData);
-                    }
-                    else{
-                        countHelp = 0;
-                    }
-                }
-            }
-            return number;
-        }
-
-        private int readFromFileList(String path,Map<Integer,String> map,int num,String str) {
-            File file = new File(path);
-            try (BufferedReader rd = new BufferedReader(new FileReader(file))) {
-                String s;
-                while ((s = rd.readLine()) != null) {
-                    num++;
-                    map.put(num,s);
-                }
-
-            } catch (IOException e) {
-                System.out.println("Ошибка чтения файла " + path);
-            }
-            map.put(num + 1,str);
-            return num;
-        }
+    public Map<Integer, String> getMapListCreateTrains() {
+        return mapListCreateTrains;
     }
 }

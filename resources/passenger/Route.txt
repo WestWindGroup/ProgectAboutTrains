@@ -1,5 +1,9 @@
+СОЗДАТЬ ПОЕЗД (например Lviv-Kremenchuk нажмите 1 , Lviv-Dnepr нажмите 3 и т.д)
 Lviv-Kremenchuk
 Lviv-Kiev
 Lviv-Dnepr
 Poltava-Kharkov
 Kharkov-Odessa
+Выход из программы.
+additionally
+Список созданых поездов.

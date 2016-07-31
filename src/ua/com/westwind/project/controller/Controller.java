@@ -17,10 +17,11 @@ public class Controller extends View {
     private TrainDataProcessing trainDataProcessing = new TrainDataProcessing();
     private PassengerTrain train;
     private Scanner scanner = new Scanner(System.in);
+    private UserScreen user;
 
     public void startProgramm(){
         try{
-            UserScreen user = new UserScreen();
+            user = new UserScreen();
             user.userInterface(scanner);
         }finally {
             scanner.close();

@@ -20,7 +20,8 @@ public class InterfaceScreen {
     private InterfaceScreen next;
     private Controller controller;
     private boolean endWork;
-    String errInput = "Извените, произошла ошибка обработки введённых данных";
+    String errProcessingInputData = "Извените, произошла ошибка обработки введённых данных";
+    String errInput = "Введены не коректные данные";
 
     public InterfaceScreen(String path, TypeInterfaceScreen typeScreen, Controller controller) {
         this.typeScreen = typeScreen;
@@ -55,7 +56,7 @@ public class InterfaceScreen {
                 train.showHeadTrain();
             } catch (Exception e) {
                 e.printStackTrace();
-                controller.showString(errInput);
+                controller.showString(errProcessingInputData);
             }
             return this;
         } else if (input <= mapListScreenView.size() - 1) {
@@ -73,7 +74,7 @@ public class InterfaceScreen {
                 controller.setTrain(controller.getMapCreatePassengerTrains().get(route));
             } catch (Exception e) {
                 e.printStackTrace();
-                controller.showString(errInput);
+                controller.showString(errProcessingInputData);
             }
             return next;
         } else return this;
@@ -118,7 +119,7 @@ public class InterfaceScreen {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                controller.showString(errInput);
+                controller.showString(errProcessingInputData);
             }
             return this;
         } else return this;
